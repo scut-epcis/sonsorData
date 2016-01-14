@@ -22,7 +22,7 @@
 				<!-- result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 -->
 			</result>
 		</action>
-		<action name="adduser" class="com.mkyong.customer.action.Loginguser" method="adduser">
+		<action name="adduser" class="edu.scut.rjxy.action.Loginguser" method="adduser">
 			<result name="success">pages/hello.html</result>
 		</action>
 	</package>

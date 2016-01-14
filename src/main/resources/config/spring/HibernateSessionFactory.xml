@@ -22,7 +22,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
         <property name="mappingResources">
             <list>
-                <value>com/mkyong/customer/hibernate/Customer.hbm.xml</value>
+                <value>edu/scut/rjxy/hibernate/Customer.hbm.xml</value>
             </list>
         </property>
 
