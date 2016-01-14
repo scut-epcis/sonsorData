@@ -83,13 +83,18 @@ public class Test {
                     " from webLogger.dbo.grid,webLogger.dbo.gridsensor,webLogger.dbo.sensor " +
                     " where gridsensor.deleted=0 and grid.idGrid = gridsensor.idGrid " +
                     " and gridsensor.sensorSerialNo = sensor.sensorSerialNo and sensor.deleted=0";
+            String menuSql4 = "select grid.idGrid,grid.gridName,sensor.sensorSerialNo,sensor.sensorName " +
+                    " from webLogger.dbo.grid,webLogger.dbo.gridsensor,webLogger.dbo.sensor " +
+                    " where gridsensor.deleted=0 and grid.idGrid = gridsensor.idGrid " +
+                    " and gridsensor.sensorSerialNo = sensor.sensorSerialNo and sensor.deleted=0  order by grid.idGrid ";
 
 
             ///------------------------test
             String testsql1 = "select channelNumber,propertyName,defaultUnits from webLogger.dbo.sensorproperties,webLogger.dbo.sensortypeproperties, webLogger.dbo.sensor  where sensortypeproperties.sensorType_idSensorType=sensor.idSensorType and sensorproperties.idSensorProperties = sensorProperties_idSensorProperties and sensor.sensorSerialNo= 1 and deleted=0";
 
             String testsql2 = "select channelNumber,propertyName,defaultUnits from webLogger.dbo.sensorproperties,webLogger.dbo.sensortypeproperties, webLogger.dbo.sensor  where sensortypeproperties.sensorType_idSensorType=sensor.idSensorType and sensorproperties.idSensorProperties = sensorProperties_idSensorProperties and sensor.sensorSerialNo= 5 and deleted=0 order by channelNumber";
-            ResultSet rs=stmt.executeQuery(testsql2);
+
+            ResultSet rs=stmt.executeQuery(menuSql4);
 
             ResultSetMetaData rsm=rs.getMetaData();
             System.out.println("t_student表有几个字段？"+rsm.getColumnCount());

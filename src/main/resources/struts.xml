@@ -8,7 +8,6 @@
 	<constant name="struts.devMode" value="true" />
 
 	<package name="default" namespace="/" extends="json-default">
-
 		<action name="*SensorAction"
 				class="sensorAction" method="{1}" >
 			<result  name="success" type="json">
