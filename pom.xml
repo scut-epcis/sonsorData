@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.mkyong.common</groupId>
-    <artifactId>Struts2Example</artifactId>
+    <groupId>edu.scut.rjxy</groupId>
+    <artifactId>SensorSSH</artifactId>
     <packaging>war</packaging>
-    <version>com.mkyong.common</version>
-    <name>Struts2Example Maven Webapp</name>
+    <version>edu.scut.rjxy</version>
+    <name>Sensor SSH Maven Webapp</name>
     <url>http://maven.apache.org</url>
     <dependencies>
 
@@ -124,6 +124,6 @@
 
     </dependencies>
     <build>
-        <finalName>Struts2Example</finalName>
+        <finalName>SensorSSH</finalName>
     </build>
 </project>
