@@ -27,7 +27,7 @@ function doAjaxdemo(){
             $.ajax({
                     type:'post',
                     url:'querySensorAction.action',
-                    data : "datefield='2015-10-12'" +  "&dategap='day'"  + "&sensorno='1'" ,
+                    data : "datefield=2015-10-12" +  "&dategap=day"  + "&sensorno=1" ,
                     success:function(res){
                         // 将数据变成echarts接手的option
                         var ores = eval ("(" + res + ")");

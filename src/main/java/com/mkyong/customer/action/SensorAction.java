@@ -61,7 +61,7 @@ public class SensorAction extends ActionSupport
      *  查询传感器数据
      * @return
      */
-    public String querySensor(){
+    public String query(){
 
         System.out.println("execut query function");
 
