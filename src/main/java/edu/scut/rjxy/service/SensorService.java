@@ -18,4 +18,9 @@ public interface SensorService {
      */
     public Map querySonsor(String sensorID,String beginTime,String endTime);
 
+    /**
+     * 获取主页面目录
+     * @return 目录结构
+     */
+    public Map getMenu();
 }

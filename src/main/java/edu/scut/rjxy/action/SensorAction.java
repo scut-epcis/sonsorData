@@ -7,7 +7,9 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import net.sf.json.JSONObject;
 
+import org.apache.log4j.Logger;
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -17,6 +19,8 @@ import java.util.Map;
 
 public class SensorAction extends ActionSupport
         implements ModelDriven {
+
+    private static final Logger LOG = Logger.getLogger(SensorAction.class);
 
     // 传入查询参数
     SensorParameter sensorParameter = new SensorParameter();
@@ -58,9 +62,9 @@ public class SensorAction extends ActionSupport
      */
     public String query(){
 
-        System.out.println("execut query function");
+        LOG.info("execut query function");
 
-        System.out.println("sensor parameter is "+sensorParameter);
+        LOG.info("sensor parameter is " + sensorParameter);
 
 
         String sensorID = sensorParameter.getSensorno();
@@ -75,6 +79,24 @@ public class SensorAction extends ActionSupport
 
         JSONObject json = JSONObject.fromObject(map);//将map对象转换成json类型数据
         result = json.toString();//给result赋值，传递给页面
+        return "success";
+    }
+
+    /**
+     * 获取sensor项目的导航（目录）
+     * @return
+     */
+    public String getMenu(){
+
+        LOG.debug("execut getMenu function");
+        LOG.debug("no parameter");
+
+//        Map map = sensorService.querySonsor(sensorID,queryTime[0],queryTime[1]);
+
+        Map map = sensorService.getMenu();
+        JSONObject json = JSONObject.fromObject(map);//将map对象转换成json类型数据
+        result = json.toString();//给result赋值，传递给页面
+
         return "success";
     }
 

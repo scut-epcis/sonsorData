@@ -28,4 +28,10 @@ public interface SensorDAO {
      * @return
      */
     public List querySensorMetaData(String sensorID);
+
+    /**
+     * 获取主页动态导航（目录）
+     * @return
+     */
+    public List getMenu();
 }

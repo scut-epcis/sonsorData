@@ -1,6 +1,7 @@
 package edu.scut.rjxy.dao.impl;
 
 import edu.scut.rjxy.dao.SensorDAO;
+import org.apache.log4j.Logger;
 import org.hibernate.SQLQuery;
 import org.hibernate.type.LongType;
 import org.hibernate.type.StringType;
@@ -16,17 +17,7 @@ import java.util.List;
 public class SensorDAOImpl extends HibernateDaoSupport implements SensorDAO {
 
 
-//    private static final String metaSql = "select channelNumber,propertyName,defaultUnits from webLogger.dbo.sensorproperties,webLogger.dbo.sensortypeproperties, webLogger.dbo.sensor  " +
-//            "where sensortypeproperties.sensorType_idSensorType=sensor.idSensorType " +
-//            "and sensorproperties.idSensorProperties = sensorProperties_idSensorProperties " +
-//            "and sensor.sensorSerialNo= :sensorSerialNo and deleted=0";
-//
-//    private static String dataSql = "select channel1_Data, channel2_Data,channel3_Data,channel4_Data,captureTime from webLogger.dbo.sensordata " +
-//            "where sensordata.Sensor_sensorSerialNo= ? " +
-//            "and captureTime BETWEEN  convert(datetime,'?')  and convert(datetime,'?') ";
-
-
-
+    public static final Logger LOG = Logger.getLogger(SensorDAOImpl.class);
 
     public List querySensorMetaData(String sensorID) {
 
@@ -39,6 +30,20 @@ public class SensorDAOImpl extends HibernateDaoSupport implements SensorDAO {
                 .addScalar("propertyName", new StringType())
                 .addScalar("defaultUnits", new StringType());
 //        query.setParameter("sensorSerialNo", sensorID);
+        return query.list();
+    }
+
+    public List getMenu() {
+
+        final String menuSql = "select grid.idGrid,grid.gridName,sensor.sensorSerialNo,sensor.sensorName " +
+                " from webLogger.dbo.grid,webLogger.dbo.gridsensor,webLogger.dbo.sensor " +
+                " where gridsensor.deleted=0 and grid.idGrid = gridsensor.idGrid " +
+                " and gridsensor.sensorSerialNo = sensor.sensorSerialNo and sensor.deleted=0 order by grid.idGrid ";;
+        SQLQuery query = this.getSession().createSQLQuery(menuSql)
+                .addScalar("idGrid", new LongType())
+                .addScalar("gridName", new StringType())
+                .addScalar("sensorSerialNo", new LongType())
+                .addScalar("sensorName", new StringType());
         return query.list();
     }
 
