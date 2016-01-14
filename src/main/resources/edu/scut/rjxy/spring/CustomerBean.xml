@@ -4,27 +4,19 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
  
- 	<bean id="customerAction" class="edu.scut.rjxy.action.CustomerAction">
-		<property name="customerBo" ref="customerBo" />	
-	</bean>
+
 
 	<bean id="sensorAction" class="edu.scut.rjxy.action.SensorAction">
 		<property name="sensorService" ref="sensorService" />
 	</bean>
 
-	<bean id="customerBo" class="edu.scut.rjxy.bo.impl.CustomerBoImpl" >
-		<property name="customerDAO" ref="customerDAO" />
-	</bean>
 
 	<bean id="sensorService" class="edu.scut.rjxy.service.impl.SensorServiceImpl">
 		<property name="sensorDAO" ref="sensorDAO"></property>
-	</bean>
-	
-   	<bean id="customerDAO" class="edu.scut.rjxy.dao.impl.CustomerDAOImpl" >
-		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
 	<bean id="sensorDAO" class="edu.scut.rjxy.dao.impl.SensorDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
+
 </beans>

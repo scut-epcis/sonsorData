@@ -59,37 +59,40 @@ public class SensorServiceImpl implements SensorService {
             SensorData sensorData = new SensorData();
             if(metaSum==1){
                 sensorData.setChannel1_data(row[0].toString());
-                n0+=","+row[0].toString();
+                n0+=row[0].toString()+",";
             }else if(metaSum == 2){
                 sensorData.setChannel1_data(row[0].toString());
                 sensorData.setChannel2_data(row[1].toString());
-                n0+=","+row[0].toString();
-                n1+=","+row[1].toString();
+                n0+=row[0].toString()+",";
+                n1+=row[1].toString()+",";
             }else if(metaSum == 3){
                 sensorData.setChannel1_data(row[0].toString());
                 sensorData.setChannel2_data(row[1].toString());
                 sensorData.setChannel3_data(row[2].toString());
-                n0+=","+row[0].toString();
-                n1+=","+row[1].toString();
-                n2+=","+row[2].toString();
+                n0+=row[0].toString()+",";
+                n1+=row[1].toString()+",";
+                n2+=row[2].toString()+",";
 
             }else if(metaSum == 4){
                 sensorData.setChannel1_data(row[0].toString());
                 sensorData.setChannel2_data(row[1].toString());
                 sensorData.setChannel3_data(row[2].toString());
                 sensorData.setChannel4_data(row[3].toString());
-                n0+=","+row[0].toString();
-                n1+=","+row[1].toString();
-                n2+=","+row[2].toString();
-                n3+=","+row[3].toString();
+                n0+=row[0].toString()+",";
+                n1+=row[1].toString()+",";
+                n2+=row[2].toString()+",";
+                n3+=row[3].toString()+",";
             }
 
             sensorData.setTime(row[4].toString());
-            n4+=","+row[4].toString();
+            n4+=row[4].toString()+",";
             System.out.println(sensorData);
         }
 
 
+        n0 = n0.substring(0,n0.length()-1);
+        n1 = n1.substring(0,n1.length()-1);
+        n4 = n4.substring(0,n4.length()-1);
         map.put("result1", n0);
         map.put("result2", n1);
         map.put("shaft",n4);
