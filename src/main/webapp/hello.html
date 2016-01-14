@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv = "content-type" content = "text/html; charset=utf-8" />
+	<meta charset="utf-8">
+    <title>先生My first Chartis Tests </title>
+<script src="dist/echarts.js"></script>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/demo_core.js"></script>
+<script type="text/javascript">
+
+</script>
+</head>
+<body>
+<div>
+    <div id="form">
+        <form method="get">
+            <table>
+                <tr>
+                    <td>Name :</td>
+                    <td><input type="text" id="name" /></td>
+                </tr>
+                <tr>
+                    <td>性别 :</td>
+                    <td><input type="radio" id="gender" value="male" /> Male
+
+                        <input type="radio" id="gender" value="female" /> Female</td>
+                </tr>
+                <tr>
+                    <td>Email :</td>
+                    <td><input type="text" id="address" /></td>
+                </tr>
+                <tr>
+                    <td>Phone :</td>
+                    <td><input type="text" id="phone" /></td>
+                </tr>
+                <tr>
+                    <td>City :</td>
+                    <td><select id="city"><option value="noida">Noida</option>
+                        <option value="delhi">Delhi</option>
+                        <option value="gurgaon">Gurgaon</option>
+                        <option value="others">Others</option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td> </td>
+                    <td><input type="button" value="Save" onclick="doAjaxdemo();" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:400px"></div>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8">
+    <title>先生My first Chartis Tests </title>
+    <script src="../dist/echarts.js"></script>
+    <script src="../js/jquery-1.11.3.min.js"></script>
+    <script src="../js/jquery.easyui.min.js"></script>
+    <script src="../js/sensorpages.js"></script>
+    <link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../css/demo.css">
+
+</head>
+<body>
+<script type="text/javascript">
+
+</script>
+<div>
+    <div><input type="hidden" id="sensorname" value="sensor1" /></div>
+    <div id="form">
+        <form method="get">
+            <table>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>日期 ：</td>
+                    <td><input class="easyui-datebox" id="datefield" data-options="formatter:myformatter,parser:myparser" required data-options="validType:'md[\'10/11/2012\']'"></input></td>
+                    <td>时间跨度 ：</td>
+                    <td>
+                        <select id="dategap">
+                            <option value ="day">day</option>
+                            <option value ="week">week</option>
+                            <option value="month">month</option>
+                        </select>
+                    </td>
+                    <td></td>
+                    <td><input type="button" value="查询" onclick="doAjaxdemo();" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main" style="height:400px"></div>
+
+</body>
+</html>

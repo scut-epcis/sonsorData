@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+ 
+<struts>
+
+	<constant name="struts.devMode" value="true" />
+
+	<package name="default" namespace="/" extends="json-default">
+		<action name="*CustomerAction"
+				class="customerAction" method="{1}" >
+			<result  name="success" type="json">
+				<param name="root">result</param>
+				<!-- result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 -->
+			</result>
+		</action>
+		<action name="*SensorAction"
+				class="sensorAction" method="{1}" >
+			<result  name="success" type="json">
+				<param name="root">result</param>
+				<!-- result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 -->
+			</result>
+		</action>
+		<action name="adduser" class="com.mkyong.customer.action.Loginguser" method="adduser">
+			<result name="success">pages/hello.html</result>
+		</action>
+	</package>
+</struts>
