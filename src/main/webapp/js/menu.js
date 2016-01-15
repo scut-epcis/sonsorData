@@ -69,11 +69,14 @@ function Open(text, url,buttonkey) {
     if ($("#tabs").tabs('exists', text)) {
         $('#tabs').tabs('select', text);
     } else {
+        console.info(buttonkey);
         var contents = '<iframe scrolling="auto" frameborder="0" name="iframe_'+buttonkey+'" src="' + url + '" style="width:100%;height:100%;"></iframe>';
         $('#tabs').tabs('add', {
             title: text,
             closable: true,
-            content: contents
+            content: contents,
+            fit:true,
+            selected:true
         });
     }
 }
@@ -159,6 +162,111 @@ function optionMenu(menus){
                 secChild.push(secondChildren);
             }
         }
+        if(firIdx==3){
+            var secChildName = menus.second_3name.split(',');
+            var secChildKey = menus.second_3key.split(',');
+            for(var secIdx = 0;secIdx < secChildName.length; secIdx ++ ){
+                var secondChildren = {};
+                secondChildren["text"] = secChildName[secIdx];
+                var secChildAttr = {};
+                secChildAttr["url"] =  "sensordemo.html";
+                secChildAttr["key"] = secChildKey[secIdx];
+                secondChildren["attributes"] = secChildAttr;
+                secChild.push(secondChildren);
+            }
+        }
+        if(firIdx==4){
+            var secChildName = menus.second_4name.split(',');
+            var secChildKey = menus.second_4key.split(',');
+            for(var secIdx = 0;secIdx < secChildName.length; secIdx ++ ){
+                var secondChildren = {};
+                secondChildren["text"] = secChildName[secIdx];
+                var secChildAttr = {};
+                secChildAttr["url"] =  "sensordemo.html";
+                secChildAttr["key"] = secChildKey[secIdx];
+                secondChildren["attributes"] = secChildAttr;
+                secChild.push(secondChildren);
+            }
+        }
+        if(firIdx==5){
+            var secChildName = menus.second_5name.split(',');
+            var secChildKey = menus.second_5key.split(',');
+            for(var secIdx = 0;secIdx < secChildName.length; secIdx ++ ){
+                var secondChildren = {};
+                secondChildren["text"] = secChildName[secIdx];
+                var secChildAttr = {};
+                secChildAttr["url"] =  "sensordemo.html";
+                secChildAttr["key"] = secChildKey[secIdx];
+                secondChildren["attributes"] = secChildAttr;
+                secChild.push(secondChildren);
+            }
+        }
+        if(firIdx==6){
+            var secChildName = menus.second_6name.split(',');
+            var secChildKey = menus.second_6key.split(',');
+            for(var secIdx = 0;secIdx < secChildName.length; secIdx ++ ){
+                var secondChildren = {};
+                secondChildren["text"] = secChildName[secIdx];
+                var secChildAttr = {};
+                secChildAttr["url"] =  "sensordemo.html";
+                secChildAttr["key"] = secChildKey[secIdx];
+                secondChildren["attributes"] = secChildAttr;
+                secChild.push(secondChildren);
+            }
+        }
+        if(firIdx==7){
+            var secChildName = menus.second_7name.split(',');
+            var secChildKey = menus.second_7key.split(',');
+            for(var secIdx = 0;secIdx < secChildName.length; secIdx ++ ){
+                var secondChildren = {};
+                secondChildren["text"] = secChildName[secIdx];
+                var secChildAttr = {};
+                secChildAttr["url"] =  "sensordemo.html";
+                secChildAttr["key"] = secChildKey[secIdx];
+                secondChildren["attributes"] = secChildAttr;
+                secChild.push(secondChildren);
+            }
+        }
+        if(firIdx==8){
+            var secChildName = menus.second_8name.split(',');
+            var secChildKey = menus.second_8key.split(',');
+            for(var secIdx = 0;secIdx < secChildName.length; secIdx ++ ){
+                var secondChildren = {};
+                secondChildren["text"] = secChildName[secIdx];
+                var secChildAttr = {};
+                secChildAttr["url"] =  "sensordemo.html";
+                secChildAttr["key"] = secChildKey[secIdx];
+                secondChildren["attributes"] = secChildAttr;
+                secChild.push(secondChildren);
+            }
+        }
+        if(firIdx==9){
+            var secChildName = menus.second_9name.split(',');
+            var secChildKey = menus.second_9key.split(',');
+            for(var secIdx = 0;secIdx < secChildName.length; secIdx ++ ){
+                var secondChildren = {};
+                secondChildren["text"] = secChildName[secIdx];
+                var secChildAttr = {};
+                secChildAttr["url"] =  "sensordemo.html";
+                secChildAttr["key"] = secChildKey[secIdx];
+                secondChildren["attributes"] = secChildAttr;
+                secChild.push(secondChildren);
+            }
+        }
+        if(firIdx==10){
+            var secChildName = menus.second_10name.split(',');
+            var secChildKey = menus.second_10key.split(',');
+            for(var secIdx = 0;secIdx < secChildName.length; secIdx ++ ){
+                var secondChildren = {};
+                secondChildren["text"] = secChildName[secIdx];
+                var secChildAttr = {};
+                secChildAttr["url"] =  "sensordemo.html";
+                secChildAttr["key"] = secChildKey[secIdx];
+                secondChildren["attributes"] = secChildAttr;
+                secChild.push(secondChildren);
+            }
+        }
+
 
         second["children"] = secChild;
         firChildren.push(second);

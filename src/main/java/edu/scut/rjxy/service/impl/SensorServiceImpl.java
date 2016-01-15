@@ -156,13 +156,13 @@ public class SensorServiceImpl implements SensorService {
 
             if(i == menus.size()-1){
                 // 末尾
-                firstMenu += menu[1].toString();
+//                firstMenu += menu[1].toString();
                 map.put("second_"+firstMenuIdx+"name",sonsorName.substring(0,sonsorName.length()-1));
                 map.put("second_"+firstMenuIdx+"key",sonsorKey.substring(0,sonsorKey.length()-1));
             }
         }
 
-        map.put("firstMenu",firstMenu);
+        map.put("firstMenu",firstMenu.substring(0,firstMenu.length()-1));
 
         if(menus.size() == 1){
             map.put("second_1name",sonsorName.substring(0,sonsorName.length()-1));
