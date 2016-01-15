@@ -17,6 +17,8 @@ public class TestDemo {
 
     public static void main(String[] args) throws ParseException {
 
+        String n0 = "";
+        System.out.println(n0.substring(0,n0.length()-1));
         String now = "2016-1-30";
 
         System.out.println(DateTimeConvert.getWeekFirst(now));

@@ -30,7 +30,7 @@ public class SensorServiceImpl implements SensorService {
 
         Map<String, Object> map = new HashMap<String, Object>();
         List<Object[]> metaData = sensorDAO.querySensorMetaData(sensorID);
-        LOG.info(metaData.size());
+        LOG.debug("元数据数目："+metaData.size());
         int metaSum = metaData.size();
 
         SensorMeta[] sensorMetas = new SensorMeta[metaSum];
@@ -49,7 +49,7 @@ public class SensorServiceImpl implements SensorService {
         map.put("util2name",sensorMetas[1].getName());
 
         List<Object[]> data = sensorDAO.querySensorData(sensorID, beginTime, endTime);
-        LOG.info(data.size());
+        LOG.debug("记录数目："+data.size());
         int dataSum = data.size();
         String n0 = "";
         String n1 = "";
@@ -88,13 +88,25 @@ public class SensorServiceImpl implements SensorService {
 
 //            sensorData.setTime(row[4].toString());
             n4+=row[4].toString()+",";
-//            LOG.info(sensorData);
+//            LOG.debug(sensorData);
+        }
+
+        if(data.size() == 0){
+            n0="-";
+            n1="-";
+            n4 = "-";
+        }else{
+            n0 = n0.substring(0,n0.length()-1);
+            n1 = n1.substring(0,n1.length()-1);
+            n4 = n4.substring(0,n4.length()-1);
         }
 
 
-        n0 = n0.substring(0,n0.length()-1);
-        n1 = n1.substring(0,n1.length()-1);
-        n4 = n4.substring(0,n4.length()-1);
+
+        LOG.debug("result1="+n0);
+        LOG.debug("result2="+n1);
+        LOG.debug("shaft="+n4);
+
         map.put("result1", n0);
         map.put("result2", n1);
         map.put("shaft",n4);

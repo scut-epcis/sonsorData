@@ -61,7 +61,7 @@ $(document).ready(function(){
 
 $(function () {
 
- console.info("fa");
+ //console.info("fa");
 });
 
 //在右边center区域打开菜单，新增tab
@@ -70,7 +70,9 @@ function Open(text, url,buttonkey) {
         $('#tabs').tabs('select', text);
     } else {
         console.info(buttonkey);
-        var contents = '<iframe scrolling="auto" frameborder="0" name="iframe_'+buttonkey+'" src="' + url + '" style="width:100%;height:100%;"></iframe>';
+        var tabiframename = "iframe_"+ buttonkey + "tab";
+        console.info(tabiframename);
+        var contents = '<iframe scrolling="auto" frameborder="0" name="'+ tabiframename +'"  style="width:100%;height:100%;"></iframe>';
         $('#tabs').tabs('add', {
             title: text,
             closable: true,
@@ -78,6 +80,7 @@ function Open(text, url,buttonkey) {
             fit:true,
             selected:true
         });
+        window.open(url+"?id="+buttonkey,tabiframename);
     }
 }
 
@@ -114,7 +117,7 @@ function optionMenu(menus){
         return;
     }
     var first = menus.firstMenu.split(',');
-    console.info(first);
+    //console.info(first);
     var firstNo = first.length;
     var firChildren = [];
     for(var firIdx = 0;firIdx < first.length;firIdx++){

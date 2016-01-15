@@ -62,9 +62,9 @@ public class SensorAction extends ActionSupport
      */
     public String query(){
 
-        LOG.info("execut query function");
+        LOG.debug("execut query function");
 
-        LOG.info("sensor parameter is " + sensorParameter);
+        LOG.debug("sensor parameter is " + sensorParameter);
 
 
         String sensorID = sensorParameter.getSensorno();
