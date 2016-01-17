@@ -33,21 +33,18 @@ public class SensorServiceImpl implements SensorService {
         List<Object[]> metaData = sensorDAO.querySensorMetaData(sensorID);
         int metaSum = metaData.size();
         LOG.debug("元数据数目：" + metaSum);
-
+        map.put("metaSum", metaSum);
         if(metaSum == 0){
             LOG.error("异常，元数据记录为空，metaSum = " + metaData);
+            map.put("result0", "-");
+            map.put("shaft", "-");
             return null;
         }
-        map.put("metaSum", metaSum);
+
         SensorMeta[] sensorMetas = new SensorMeta[metaSum];
         int metaindex = 0;
 
         for (Object[] row : metaData) {
-            sensorMetas[metaindex] = new SensorMeta();
-            sensorMetas[metaindex].setChannelID(row[0].toString());
-            sensorMetas[metaindex].setName(row[1].toString());
-            sensorMetas[metaindex].setDefaultUnit(row[2].toString());
-            LOG.debug(sensorMetas[metaindex]);
 
             map.put("unit" + metaindex + "name", convertToChinese(row[1].toString()));
             map.put("unit" + metaindex + "abbr", row[2].toString());
@@ -55,16 +52,10 @@ public class SensorServiceImpl implements SensorService {
             metaindex++;
         }
 
-//        map.put("unit1", sensorMetas[0].getDefaultUnit());
-//        map.put("unit2",sensorMetas[1].getDefaultUnit());
-//
-//        map.put("unit1name",convertToChinese(sensorMetas[0].getName()));
-//        map.put("unit2name",convertToChinese(sensorMetas[1].getName()));
-
         List<Object[]> data = sensorDAO.querySensorData(sensorID, beginTime, endTime);
         int dataSum = data.size();
         LOG.debug("记录数目：" + dataSum);
-
+        map.put("dataSum", dataSum);
         String n0 = "";
         String n1 = "";
         String n2 = "";
@@ -92,7 +83,7 @@ public class SensorServiceImpl implements SensorService {
             n4 += row[4].toString() + ",";
         }
 
-        if (data.size() == 0) {
+        if (dataSum == 0) {
             n0 = "-";
             n1 = "-";
             n2 = "-";
@@ -126,13 +117,12 @@ public class SensorServiceImpl implements SensorService {
 
             n4 = n4.substring(0, n4.length() - 1);
 
-            LOG.debug("result0=" + n0);
-            LOG.debug("shaft=" + n4);
-
-            map.put("result0", n0);
-            map.put("shaft", n4);
         }
+        LOG.debug("result0=" + n0);
+        LOG.debug("shaft=" + n4);
 
+        map.put("result0", n0);
+        map.put("shaft", n4);
         return map;
     }
 

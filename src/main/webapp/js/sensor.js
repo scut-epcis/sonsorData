@@ -19,7 +19,7 @@ function doAjaxdemo(){
             var datefield = $('#datefield').datebox('getValue');
             var dategap = $('#dategap').val();
             var sensorno = $('#sensorno').val();
-            //console.info(sensorno);
+            console.info(sensorno);
 
             $.ajax({
                     type:'post',
@@ -47,6 +47,10 @@ function doAjaxdemo(){
 
 function optionFactory(res) {
     var metaSum = res.metaSum;
+    var dataSum = res.dataSum;
+    //if(dataSum == 0){
+    //    return defaultOption(res);
+    //}
     var legend_data = {};
     var yAxis_data = [];
     var series_data = [];
@@ -59,13 +63,23 @@ function optionFactory(res) {
                 formatter: '{value} '+res.unit0abbr
             }
         }];
-        var result0 = res.result0.split(",");
-        series_data = [
-            {
-                name:res.unit0name,
-                type:'line',
-                data:result0
-            }];
+        if(dataSum == 0){
+            series_data = [
+                {
+                    name:res.unit0name,
+                    type:'line',
+                    data:'-'
+                }];
+        }else{
+            var result0 = res.result0.split(",");
+            series_data = [
+                {
+                    name:res.unit0name,
+                    type:'line',
+                    data:result0
+                }];
+        }
+
     }else if(metaSum == '2'){
         legend_data = {"data":[res.unit0name,res.unit1name]};
         yAxis_data = [{
@@ -83,20 +97,37 @@ function optionFactory(res) {
 
         }
         ];
-        var result0 = res.result0.split(",");
-        var result1 = res.result1.split(",");
-        series_data = [
-            {
-                name:res.unit0name,
-                type:'line',
-                data:result0
-            },{
-                name:res.unit1name,
-                type:'line',
-                yAxisIndex: 1,
-                data:result1
-            }
-        ];
+        if(dataSum == 0){
+            series_data = [
+                {
+                    name:res.unit0name,
+                    type:'line',
+                    data:'-'
+                },{
+                    name:res.unit1name,
+                    type:'line',
+                    yAxisIndex: 1,
+                    data:'-'
+                }
+            ];
+        }else{
+
+            var result0 = res.result0.split(",");
+            var result1 = res.result1.split(",");
+            series_data = [
+                {
+                    name:res.unit0name,
+                    type:'line',
+                    data:result0
+                },{
+                    name:res.unit1name,
+                    type:'line',
+                    yAxisIndex: 1,
+                    data:result1
+                }
+            ];
+        }
+
     }else if(metaSum == '3'){
         legend_data = {"data":[res.unit0name,res.unit1name,res.unit2name]};
         yAxis_data = [{
@@ -119,26 +150,47 @@ function optionFactory(res) {
             }
         }
         ];
-        var result0 = res.result0.split(",");
-        var result1 = res.result1.split(",");
-        var result2 = res.result2.split(",");
-        series_data = [
-            {
-                name:res.unit0name,
-                type:'line',
-                data:result0
-            },{
-                name:res.unit1name,
-                type:'line',
-                yAxisIndex: 1,
-                data:result1
-            },{
-                name:res.unit2name,
-                type:'line',
-                yAxisIndex: 1,
-                data:result2
-            }
-        ];
+        if(dataSum == 0){
+            series_data = [
+                {
+                    name:res.unit0name,
+                    type:'line',
+                    data:'-'
+                },{
+                    name:res.unit1name,
+                    type:'line',
+                    yAxisIndex: 1,
+                    data:'-'
+                },{
+                    name:res.unit2name,
+                    type:'line',
+                    yAxisIndex: 1,
+                    data:'-'
+                }
+            ];
+        }else{
+            var result0 = res.result0.split(",");
+            var result1 = res.result1.split(",");
+            var result2 = res.result2.split(",");
+            series_data = [
+                {
+                    name:res.unit0name,
+                    type:'line',
+                    data:result0
+                },{
+                    name:res.unit1name,
+                    type:'line',
+                    yAxisIndex: 1,
+                    data:result1
+                },{
+                    name:res.unit2name,
+                    type:'line',
+                    yAxisIndex: 1,
+                    data:result2
+                }
+            ];
+        }
+
     }else if(metaSum == '4'){
         legend_data = {"data":[res.unit0name,res.unit1name,res.unit2name,res.unit3name]};
         yAxis_data = [{
@@ -167,32 +219,57 @@ function optionFactory(res) {
                 }
             }
         ];
-        var result0 = res.result0.split(",");
-        var result1 = res.result1.split(",");
-        var result2 = res.result2.split(",");
-        var result3 = res.result3.split(",");
-        series_data = [
-            {
-                name:res.unit0name,
-                type:'line',
-                data:result0
-            },{
-                name:res.unit1name,
-                type:'line',
-                yAxisIndex: 1,
-                data:result1
-            },{
-                name:res.unit2name,
-                type:'line',
-                yAxisIndex: 1,
-                data:result2
-            },{
-                name:res.unit3name,
-                type:'line',
-                yAxisIndex: 1,
-                data:result3
-            }
-        ];
+        if(dataSum == 0){
+            series_data = [
+                {
+                    name:res.unit0name,
+                    type:'line',
+                    data:'-'
+                },{
+                    name:res.unit1name,
+                    type:'line',
+                    yAxisIndex: 1,
+                    data:'-'
+                },{
+                    name:res.unit2name,
+                    type:'line',
+                    yAxisIndex: 1,
+                    data:'-'
+                },{
+                    name:res.unit3name,
+                    type:'line',
+                    yAxisIndex: 1,
+                    data:'-'
+                }
+            ];
+        }else {
+            var result0 = res.result0.split(",");
+            var result1 = res.result1.split(",");
+            var result2 = res.result2.split(",");
+            var result3 = res.result3.split(",");
+            series_data = [
+                {
+                    name:res.unit0name,
+                    type:'line',
+                    data:result0
+                },{
+                    name:res.unit1name,
+                    type:'line',
+                    yAxisIndex: 1,
+                    data:result1
+                },{
+                    name:res.unit2name,
+                    type:'line',
+                    yAxisIndex: 1,
+                    data:result2
+                },{
+                    name:res.unit3name,
+                    type:'line',
+                    yAxisIndex: 1,
+                    data:result3
+                }
+            ];
+        }
     }else {
         return ;
     }
@@ -216,6 +293,35 @@ function optionFactory(res) {
         series : series_data
     };
     return option;
+};
+
+function defaultOption(){
+    var defalutOp =  {
+        tooltip : {
+            trigger: 'axis'
+        },
+
+        calculable : true,
+        legend: {
+            data:['-']
+        },
+        xAxis : [
+            {
+                type : 'category',
+                data : ['-']
+            }
+        ],
+        yAxis : [       {
+            type : 'value'
+        }],
+        series : [        {
+            name:'-',
+            type:'line',
+            data:['-']
+        }]
+    };
+
+    return defalutOp;
 }
 $.extend($.fn.validatebox.defaults.rules, {
     md: {
