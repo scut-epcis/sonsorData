@@ -94,7 +94,9 @@ public class Test {
 
             String testsql2 = "select channelNumber,propertyName,defaultUnits from webLogger.dbo.sensorproperties,webLogger.dbo.sensortypeproperties, webLogger.dbo.sensor  where sensortypeproperties.sensorType_idSensorType=sensor.idSensorType and sensorproperties.idSensorProperties = sensorProperties_idSensorProperties and sensor.sensorSerialNo= 5 and deleted=0 order by channelNumber";
 
-            ResultSet rs=stmt.executeQuery(menuSql4);
+            String unitsSql = " select * from webLogger.dbo.sensorproperties ";
+
+            ResultSet rs=stmt.executeQuery(unitsSql);
 
             ResultSetMetaData rsm=rs.getMetaData();
             System.out.println("t_student表有几个字段？"+rsm.getColumnCount());

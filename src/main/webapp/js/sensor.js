@@ -19,7 +19,7 @@ function doAjaxdemo(){
             var datefield = $('#datefield').datebox('getValue');
             var dategap = $('#dategap').val();
             var sensorno = $('#sensorno').val();
-            console.info(sensorno);
+            //console.info(sensorno);
 
             $.ajax({
                     type:'post',
@@ -46,10 +46,158 @@ function doAjaxdemo(){
 }
 
 function optionFactory(res) {
-    var result1 = res.result1.split(",");
-    var result2 = res.result2.split(",");
-    var shafts = res.shaft.split(",");
+    var metaSum = res.metaSum;
+    var legend_data = {};
+    var yAxis_data = [];
+    var series_data = [];
+    if(metaSum == '1'){
+        legend_data = {"data":res.unit0name};
+        yAxis_data = [{
+            type : 'value',
+            name : res.unit0name,
+            axisLabel : {
+                formatter: '{value} '+res.unit0abbr
+            }
+        }];
+        var result0 = res.result0.split(",");
+        series_data = [
+            {
+                name:res.unit0name,
+                type:'line',
+                data:result0
+            }];
+    }else if(metaSum == '2'){
+        legend_data = {"data":[res.unit0name,res.unit1name]};
+        yAxis_data = [{
+            type : 'value',
+            name : res.unit0name,
+            axisLabel : {
+                formatter: '{value} '+res.unit0abbr
+            }
+        },{
+            type : 'value',
+            name : res.unit1name,
+            axisLabel : {
+                formatter: '{value} '+res.unit1abbr
+            }
 
+        }
+        ];
+        var result0 = res.result0.split(",");
+        var result1 = res.result1.split(",");
+        series_data = [
+            {
+                name:res.unit0name,
+                type:'line',
+                data:result0
+            },{
+                name:res.unit1name,
+                type:'line',
+                yAxisIndex: 1,
+                data:result1
+            }
+        ];
+    }else if(metaSum == '3'){
+        legend_data = {"data":[res.unit0name,res.unit1name,res.unit2name]};
+        yAxis_data = [{
+            type : 'value',
+            name : res.unit0name,
+            axisLabel : {
+                formatter: '{value} '+res.unit0abbr
+            }
+        },{
+            type : 'value',
+            name : res.unit1name,
+            axisLabel : {
+                formatter: '{value} '+res.unit1abbr
+            }
+        },{
+            type : 'value',
+            name : res.unit2name,
+            axisLabel : {
+                formatter: '{value} '+res.unit2abbr
+            }
+        }
+        ];
+        var result0 = res.result0.split(",");
+        var result1 = res.result1.split(",");
+        var result2 = res.result2.split(",");
+        series_data = [
+            {
+                name:res.unit0name,
+                type:'line',
+                data:result0
+            },{
+                name:res.unit1name,
+                type:'line',
+                yAxisIndex: 1,
+                data:result1
+            },{
+                name:res.unit2name,
+                type:'line',
+                yAxisIndex: 1,
+                data:result2
+            }
+        ];
+    }else if(metaSum == '4'){
+        legend_data = {"data":[res.unit0name,res.unit1name,res.unit2name,res.unit3name]};
+        yAxis_data = [{
+            type : 'value',
+            name : res.unit0name,
+            axisLabel : {
+                formatter: '{value} '+res.unit0abbr
+            }
+        },{
+            type : 'value',
+            name : res.unit1name,
+            axisLabel : {
+                formatter: '{value} '+res.unit1abbr
+            }
+        },{
+            type : 'value',
+            name : res.unit2name,
+            axisLabel : {
+                formatter: '{value} '+res.unit2abbr
+            }
+        },{
+                type : 'value',
+                name : res.unit3name,
+                axisLabel : {
+                    formatter: '{value} '+res.unit3abbr
+                }
+            }
+        ];
+        var result0 = res.result0.split(",");
+        var result1 = res.result1.split(",");
+        var result2 = res.result2.split(",");
+        var result3 = res.result3.split(",");
+        series_data = [
+            {
+                name:res.unit0name,
+                type:'line',
+                data:result0
+            },{
+                name:res.unit1name,
+                type:'line',
+                yAxisIndex: 1,
+                data:result1
+            },{
+                name:res.unit2name,
+                type:'line',
+                yAxisIndex: 1,
+                data:result2
+            },{
+                name:res.unit3name,
+                type:'line',
+                yAxisIndex: 1,
+                data:result3
+            }
+        ];
+    }else {
+        return ;
+    }
+
+    var shafts = res.shaft.split(",");
 
     var option = {
         tooltip : {
@@ -57,44 +205,15 @@ function optionFactory(res) {
         },
 
         calculable : true,
-        legend: {
-            data:[res.util1name,res.util2name]
-        },
+        legend: legend_data,
         xAxis : [
             {
                 type : 'category',
                 data : shafts
             }
         ],
-        yAxis : [
-            {
-                type : 'value',
-                name : res.util1name,
-                axisLabel : {
-                    formatter: '{value} '+res.util1
-                }
-            },
-            {
-                type : 'value',
-                name : res.util2name,
-                axisLabel : {
-                    formatter: '{value} '+res.util2
-                }
-            }
-        ],
-        series : [
-            {
-                name:res.util1name,
-                type:'line',
-                data:result1
-            },
-            {
-                name:res.util2name,
-                type:'line',
-                yAxisIndex: 1,
-                data:result2
-            }
-        ]
+        yAxis : yAxis_data,
+        series : series_data
     };
     return option;
 }

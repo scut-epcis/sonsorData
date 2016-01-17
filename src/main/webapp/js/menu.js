@@ -69,9 +69,9 @@ function Open(text, url,buttonkey) {
     if ($("#tabs").tabs('exists', text)) {
         $('#tabs').tabs('select', text);
     } else {
-        console.info(buttonkey);
+        //console.info(buttonkey);
         var tabiframename = "iframe_"+ buttonkey + "tab";
-        console.info(tabiframename);
+        //console.info(tabiframename);
         var contents = '<iframe scrolling="auto" frameborder="0" name="'+ tabiframename +'"  style="width:100%;height:100%;"></iframe>';
         $('#tabs').tabs('add', {
             title: text,

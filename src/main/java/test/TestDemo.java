@@ -1,5 +1,7 @@
 package test;
 
+import edu.scut.rjxy.utils.EnToCnUnits;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,8 +19,9 @@ public class TestDemo {
 
     public static void main(String[] args) throws ParseException {
 
-        String n0 = "";
-        System.out.println(n0.substring(0,n0.length()-1));
+        String n0 = "Temperature";
+        System.out.println(EnToCnUnits.getPropertValue(n0));
+//        System.out.println(n0.substring(0,n0.length()-1));
         String now = "2016-1-30";
 
         System.out.println(DateTimeConvert.getWeekFirst(now));
