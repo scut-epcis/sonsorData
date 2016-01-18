@@ -39,9 +39,9 @@ function doAjaxdemo() {
                     error: function (e) {
                         var error = eval("(" + e + ")");
                         if(error.error == undefined){
-                            alert('Error: ' + error.error);
-                        }else{
                             alert('Error: ' + e);
+                        }else{
+                            alert('Error: ' + error.error);
                         }
 
                     }
@@ -470,9 +470,9 @@ function doAjaxHead(){
             error: function (e) {
                 var error = eval("(" + e + ")");
                 if(error.error == undefined){
-                    alert('异常: ' + error.error);
-                }else{
                     alert('异常: ' + e);
+                }else{
+                    alert('异常: ' + error.error);
                 }
             }
         }
@@ -503,9 +503,9 @@ function doAjaxTail(){
             error: function (e) {
                 var error = eval("(" + e + ")");
                 if(error.error == undefined){
-                    alert('异常: ' + error.error);
-                }else{
                     alert('异常: ' + e);
+                }else{
+                    alert('异常: ' + error.error);
                 }
             }
         }
