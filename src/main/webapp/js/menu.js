@@ -283,7 +283,5 @@ function optionMenu(menus){
 
         }
     ];
-
-
     return treeData;
 }

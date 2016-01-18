@@ -76,6 +76,7 @@ public class Test {
                     "and captureTime BETWEEN  convert(datetime,'2015-10-06')  and convert(datetime,'2015-10-07') ";
 
 
+            String menuSql0 = "select * from webLogger.dbo.sites";
             String menuSql = "select * from webLogger.dbo.grid";
             String menuSql1 = "select * from webLogger.dbo.gridsensor ";
             String menuSql2 = "select * from webLogger.dbo.sensor";
@@ -88,15 +89,17 @@ public class Test {
                     " where gridsensor.deleted=0 and grid.idGrid = gridsensor.idGrid " +
                     " and gridsensor.sensorSerialNo = sensor.sensorSerialNo and sensor.deleted=0  order by grid.idGrid ";
 
+            ///--------------units
+            String unitsSql = " select * from webLogger.dbo.sensorproperties ";
 
             ///------------------------test
             String testsql1 = "select channelNumber,propertyName,defaultUnits from webLogger.dbo.sensorproperties,webLogger.dbo.sensortypeproperties, webLogger.dbo.sensor  where sensortypeproperties.sensorType_idSensorType=sensor.idSensorType and sensorproperties.idSensorProperties = sensorProperties_idSensorProperties and sensor.sensorSerialNo= 1 and deleted=0";
 
             String testsql2 = "select channelNumber,propertyName,defaultUnits from webLogger.dbo.sensorproperties,webLogger.dbo.sensortypeproperties, webLogger.dbo.sensor  where sensortypeproperties.sensorType_idSensorType=sensor.idSensorType and sensorproperties.idSensorProperties = sensorProperties_idSensorProperties and sensor.sensorSerialNo= 5 and deleted=0 order by channelNumber";
 
-            String unitsSql = " select * from webLogger.dbo.sensorproperties ";
+            String testSql3 = "select channelNumber,propertyName,defaultUnits from webLogger.dbo.sensorproperties,webLogger.dbo.sensortypeproperties, webLogger.dbo.sensor  where sensortypeproperties.sensorType_idSensorType=sensor.idSensorType and sensorproperties.idSensorProperties = sensorProperties_idSensorProperties and sensor.sensorSerialNo= 8 and deleted=0  order by channelNumber";
 
-            ResultSet rs=stmt.executeQuery(unitsSql);
+            ResultSet rs=stmt.executeQuery(testSql3);
 
             ResultSetMetaData rsm=rs.getMetaData();
             System.out.println("t_student表有几个字段？"+rsm.getColumnCount());

@@ -45,9 +45,10 @@ public class SensorServiceImpl implements SensorService {
         int metaindex = 0;
 
         for (Object[] row : metaData) {
-
-            map.put("unit" + metaindex + "name", convertToChinese(row[1].toString()));
-            map.put("unit" + metaindex + "abbr", row[2].toString());
+            String name_tmp  = row[1]==null?"-":row[1].toString();
+            String abbr_tmp  = row[2]==null?"-":row[2].toString();
+            map.put("unit" + metaindex + "name", convertToChinese(name_tmp));
+            map.put("unit" + metaindex + "abbr", abbr_tmp);
 
             metaindex++;
         }
