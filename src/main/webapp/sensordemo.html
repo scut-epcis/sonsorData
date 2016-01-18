@@ -9,6 +9,7 @@
     <script src="js/jquery-1.11.3.min.js"></script>
     <script src="js/jquery.easyui.min.js"></script>
     <script src="js/sensor.js"></script>
+    <script src="js/easyui-lang-zh_CN.js"></script>
 
     <link rel="stylesheet" type="text/css" href="themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="themes/icon.css">
@@ -50,13 +51,21 @@
                     <td>时间跨度 ：</td>
                     <td>
                         <select id="dategap">
-                            <option value="day">day</option>
-                            <option value="week">week</option>
-                            <option value="month">month</option>
+                            <option value="day">一天内</option>
+                            <option value="week">一周内</option>
+                            <option value="month">一月内</option>
                         </select>
                     </td>
                     <td></td>
                     <td><input type="button" value="查询" onclick="doAjaxdemo();"/>
+                    </td>
+                    <td><input type="button" value="向前查询" onclick="doAjaxPrev();"/>
+                    </td>
+                    <td><input type="button" value="向后查询" onclick="doAjaxNext();"/>
+                    </td>
+                    <td><input type="button" value="" onclick="doAjaxHead();"/>
+                    </td>
+                    <td><input type="button" value="向前查询" onclick="doAjaxTail();"/>
                     </td>
                 </tr>
             </table>
