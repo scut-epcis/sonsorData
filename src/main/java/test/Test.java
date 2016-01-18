@@ -99,7 +99,16 @@ public class Test {
 
             String testSql3 = "select channelNumber,propertyName,defaultUnits from webLogger.dbo.sensorproperties,webLogger.dbo.sensortypeproperties, webLogger.dbo.sensor  where sensortypeproperties.sensorType_idSensorType=sensor.idSensorType and sensorproperties.idSensorProperties = sensorProperties_idSensorProperties and sensor.sensorSerialNo= 8 and deleted=0  order by channelNumber";
 
-            ResultSet rs=stmt.executeQuery(testSql3);
+
+            /////--------------------Sensor Data product Date
+            String headDate = "select top 1 channel1_Data, channel2_Data,channel3_Data,channel4_Data,captureTime from webLogger.dbo.sensordata " +
+                    "where sensordata.Sensor_sensorSerialNo=5 " +" ORDER  BY captureTime ASC ";
+
+            String tailDate = "select top 1 channel1_Data, channel2_Data,channel3_Data,channel4_Data,captureTime from webLogger.dbo.sensordata " +
+                    "where sensordata.Sensor_sensorSerialNo=5 " +" ORDER  BY captureTime desc ";
+
+
+            ResultSet rs=stmt.executeQuery(tailDate);
 
             ResultSetMetaData rsm=rs.getMetaData();
             System.out.println("t_student表有几个字段？"+rsm.getColumnCount());

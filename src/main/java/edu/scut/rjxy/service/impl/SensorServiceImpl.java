@@ -4,9 +4,11 @@ import edu.scut.rjxy.dao.SensorDAO;
 import edu.scut.rjxy.model.SensorData;
 import edu.scut.rjxy.model.SensorMeta;
 import edu.scut.rjxy.service.SensorService;
+import edu.scut.rjxy.utils.DateTimeConvert;
 import edu.scut.rjxy.utils.EnToCnUnits;
 import org.apache.log4j.Logger;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -137,6 +139,38 @@ public class SensorServiceImpl implements SensorService {
         List<Object[]> menus = sensorDAO.getMenu();
         Map<String, Object> map = handleMenu(menus);
 
+        return map;
+    }
+
+    public Map querySonsorHeadDate(String sensorID) {
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        List<Object[]> menus = sensorDAO.getHeadDate(sensorID);
+
+        if(menus == null ||menus.size() == 0){
+            map.put("headDate", DateTimeConvert.formatDate(new Date().toString()));
+            LOG.error("当前sensor 没有有效数据");
+            return map;
+        }
+        String headDate = menus.get(0)[1]== null? new Date().toString():menus.get(0)[1].toString();
+        LOG.debug("sensor对应的初始记录产生时间："+ DateTimeConvert.formatDate(headDate));
+        map.put("headDate", DateTimeConvert.formatDate(headDate));
+        return map;
+    }
+
+    public Map querySonsorTailDate(String sensorID) {
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        List<Object[]> menus = sensorDAO.getTailDate(sensorID);
+
+        if(menus == null ||menus.size() == 0){
+            map.put("tailDate", DateTimeConvert.formatDate(new Date().toString()));
+            LOG.error("当前sensor 没有有效数据");
+            return map;
+        }
+        String tailDate = menus.get(0)[1]== null? new Date().toString():menus.get(0)[1].toString();
+        LOG.debug("sensor对应的最新的记录产生时间："+ DateTimeConvert.formatDate(tailDate));
+        map.put("tailDate", DateTimeConvert.formatDate(tailDate));
         return map;
     }
 

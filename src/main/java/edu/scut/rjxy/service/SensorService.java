@@ -23,4 +23,18 @@ public interface SensorService {
      * @return 目录结构
      */
     public Map getMenu();
+
+    /**
+     * 获取指定sensor，初始数据的时间
+     * @param sensorID
+     * @return
+     */
+    public Map querySonsorHeadDate(String sensorID);
+
+    /**
+     * 获取指定sensor，最新数据的时间
+     * @param sensorID
+     * @return
+     */
+    public Map querySonsorTailDate(String sensorID);
 }

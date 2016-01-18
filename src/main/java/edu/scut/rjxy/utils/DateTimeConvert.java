@@ -120,4 +120,31 @@ public final class DateTimeConvert {
         String nextDate = format.format(rightNow.getTime());
         return nextDate;
     }
+
+    /**
+     * 格式化时间字符串格式
+     * @param date 传入对应格式String
+     * @return 被格式化的String
+     */
+    public static final String formatDate(String date){
+
+        if(date.length() <=10){
+            return getFormateDate();
+        }
+        try{
+            format.parse(date.substring(0,10));
+        }catch (ParseException e) {
+            return getFormateDate();
+        }
+        return date.substring(0,10);
+    }
+
+    /**
+     * 获取当前时间 yyyy-MM-dd格式String
+     * @return 字符串
+     */
+    public static final String getFormateDate(){
+
+        return format.format(new Date());
+    }
 }

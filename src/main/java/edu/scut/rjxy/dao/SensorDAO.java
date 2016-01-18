@@ -34,4 +34,18 @@ public interface SensorDAO {
      * @return
      */
     public List getMenu();
+
+    /**
+     * 从数据库中找到指定sensor中，第一条记录产生的时间
+     * @param sensorID sensor ID
+     * @return 时间字符串
+     */
+    public List<Object[]> getHeadDate(String sensorID);
+
+    /**
+     * 从数据库中查询出指定sensor，最新一条记录产生的时间
+     * @param sensorID sensor ID
+     * @return 时间字符串
+     */
+    public List<Object[]> getTailDate(String sensorID);
 }

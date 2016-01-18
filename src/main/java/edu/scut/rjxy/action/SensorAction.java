@@ -61,11 +61,8 @@ public class SensorAction extends ActionSupport
     public String query() {
 
         LOG.debug("execut query function");
-
         LOG.debug("sensor parameter is " + sensorParameter);
         if(isNullSenPara(sensorParameter)){
-//            JSONObject json = JSONObject.fromObject(null);//将map对象转换成json类型数据
-//            result = json.toString();//给result赋值，传递给页面
             result = new JSONObject().put("error", "输入参数有误!").toString();
             return "false";
         }
@@ -84,8 +81,41 @@ public class SensorAction extends ActionSupport
         return "success";
     }
 
+    public String head(){
+        LOG.debug("execut head function");
+        LOG.debug("sensor parameter is " + sensorParameter);
+        if(isNullPartSenPara(sensorParameter)){
+            result = new JSONObject().put("error", "输入参数有误!").toString();
+            return "false";
+        }
+        String sensorID = sensorParameter.getSensorno();
+        Map map = sensorService.querySonsorHeadDate(sensorID);
+
+        JSONObject json = JSONObject.fromObject(map);//将map对象转换成json类型数据
+        result = json.toString();//给result赋值，传递给页面
+        return "success";
+    }
+
+    public String tail(){
+        LOG.debug("execut tail function");
+        LOG.debug("sensor parameter is " + sensorParameter);
+        if(isNullPartSenPara(sensorParameter)){
+            result = new JSONObject().put("error", "输入参数有误!").toString();
+            return "false";
+        }
+
+        String sensorID = sensorParameter.getSensorno();
+        Map map = sensorService.querySonsorTailDate(sensorID);
+
+        JSONObject json = JSONObject.fromObject(map);//将map对象转换成json类型数据
+        result = json.toString();
+        return "success";
+    }
+
     /**
-     * 判断 sensor 参数是否为空，如果为空，跳出方法，返回失败
+     * 判断 sensor 参数是否为空，
+     * <br>
+     *     传输查询起始时间，传感器id,时间间隔都不能为空
      * @param sensorParameter
      * @return
      */
@@ -97,6 +127,21 @@ public class SensorAction extends ActionSupport
         if(sensorParameter.getDategap() == null||sensorParameter.getDategap().equals("")){
             return true;
         }
+        if(sensorParameter.getSensorno() == null||sensorParameter.getSensorno().equals("")){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 判断 sensor 查询参数是否为空
+     * <br>
+     *     传感器ID不能为空
+     * @param sensorParameter
+     * @return
+     */
+    private boolean isNullPartSenPara(SensorParameter sensorParameter){
+
         if(sensorParameter.getSensorno() == null||sensorParameter.getSensorno().equals("")){
             return true;
         }

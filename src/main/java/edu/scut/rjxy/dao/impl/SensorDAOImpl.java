@@ -47,6 +47,20 @@ public class SensorDAOImpl extends HibernateDaoSupport implements SensorDAO {
         return query.list();
     }
 
+    public List<Object[]> getHeadDate(String sensorID) {
+        final String sensorDataHeadDate = "select top 1 channel1_Data,captureTime from webLogger.dbo.sensordata " +
+                "where sensordata.Sensor_sensorSerialNo= "+ sensorID +" ORDER  BY captureTime ASC ";
+        SQLQuery query = this.getSession().createSQLQuery(sensorDataHeadDate);
+        return query.list();
+    }
+
+    public List<Object[]> getTailDate(String sensorID) {
+        final String sensorDataTailDate = "select top 1 channel1_Data,captureTime from webLogger.dbo.sensordata " +
+                "where sensordata.Sensor_sensorSerialNo= "+ sensorID +" ORDER  BY captureTime DESC ";;
+        SQLQuery query = this.getSession().createSQLQuery(sensorDataTailDate);
+        return query.list();
+    }
+
     public List querySensorData(String sensorID, String beginDate, String endDate) {
 
 
