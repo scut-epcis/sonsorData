@@ -1,5 +1,7 @@
 package test;
 
+
+import edu.scut.rjxy.utils.DateTimeConvert;
 import edu.scut.rjxy.utils.EnToCnUnits;
 
 import java.text.DateFormat;
@@ -22,13 +24,15 @@ public class TestDemo {
         String n0 = "Temperature";
         System.out.println(EnToCnUnits.getPropertValue(n0));
 //        System.out.println(n0.substring(0,n0.length()-1));
-        String now = "2016-1-30";
+        String now = "2015-12-12";
 
         System.out.println(DateTimeConvert.getWeekFirst(now));
         System.out.println(DateTimeConvert.getWeekLast(now));
         System.out.println(DateTimeConvert.getMonthFirst(now));
         System.out.println(DateTimeConvert.getNextDay(DateTimeConvert.getMonthLast(now)));
         System.out.println(DateTimeConvert.getNextDay(now));
+        System.out.println("7 :"+DateTimeConvert.getNextSevenDay(now));
+        System.out.println("30 :"+DateTimeConvert.getNextThirtyDay(now));
 //        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 //        //获取当前月第一天：
 //        Calendar c = Calendar.getInstance();

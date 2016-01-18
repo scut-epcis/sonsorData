@@ -32,7 +32,7 @@
         }
 
         var id = ary[0];
-        console.info(id);
+//        console.info(id);
         $("#sensorno").val(id);
     });
 </script>
@@ -42,9 +42,7 @@
         <form>
             <table>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td>日期 ：</td>
+                    <td>查询日期 ：</td>
                     <td><input class="easyui-datebox" id="datefield"
                                data-options="formatter:myformatter,parser:myparser" required
                                data-options="validType:'md[\'10/11/2012\']'"></input></td>
@@ -59,14 +57,16 @@
                     <td></td>
                     <td><input type="button" value="查询" onclick="doAjaxdemo();"/>
                     </td>
-                    <td><input type="button" value="向前查询" onclick="doAjaxPrev();"/>
+                <tr>
+                    <td><input type="button" value="向前查询" onclick="doQueryPrev();"/>
                     </td>
-                    <td><input type="button" value="向后查询" onclick="doAjaxNext();"/>
+                    <td><input type="button" value="向后查询" onclick="doQueryNext();"/>
                     </td>
-                    <td><input type="button" value="" onclick="doAjaxHead();"/>
+                    <td><input type="button" value="最初数据" onclick="doAjaxHead();"/>
                     </td>
-                    <td><input type="button" value="向前查询" onclick="doAjaxTail();"/>
+                    <td><input type="button" value="最新数据" onclick="doAjaxTail();"/>
                     </td>
+                </tr>
                 </tr>
             </table>
         </form>

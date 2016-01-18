@@ -33,6 +33,36 @@ public final class DateTimeConvert {
     }
 
     /**
+     * 获取七天之后的日期
+     * @param now 当前时间
+     * @return 一周后的日期
+     */
+    public static final String getNextSevenDay(String now) throws ParseException {
+        Calendar cal1 = Calendar.getInstance();
+        Date date11=format.parse(now);
+        cal1.setTime(date11);
+        cal1.add(Calendar.DAY_OF_WEEK, 7);
+        String callast = format.format(cal1.getTime());
+//        System.out.println("本周周日24点时间：" + callast);
+        return callast;
+    }
+
+    /**
+     * 获取一个月之后的日期
+     * @param now 当前时间
+     * @return 一月之后的日期
+     * @throws ParseException
+     */
+    public static final String getNextThirtyDay(String  now) throws ParseException {
+        Calendar cal1 = Calendar.getInstance();
+        Date date11=format.parse(now);
+        cal1.setTime(date11);
+        cal1.add(Calendar.DAY_OF_WEEK, 30);
+        String callast = format.format(cal1.getTime());
+//        System.out.println("本周周日24点时间：" + callast);
+        return callast;
+    }
+    /**
      * 获取指定日期所在week的周日日期
      * @param now
      * @return
