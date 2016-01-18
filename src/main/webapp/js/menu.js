@@ -6,7 +6,7 @@ $(document).ready(function(){
     // //动态菜单数据
     var treeData = [
         {
-            text: "主目录",
+            text: "nanyue",
             children: []
         }
     ];
@@ -278,7 +278,7 @@ function optionMenu(menus){
     //动态菜单数据
     var treeData = [
         {
-            text: "主目录",
+            text: "nanyue",
             children: firChildren
 
         }
