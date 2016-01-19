@@ -11,7 +11,8 @@ function doAjaxdemo() {
         [
             'echarts',
             'echarts/chart/bar', // 使用柱状图就加载bar模块，按需加载
-            'echarts/chart/line'
+            'echarts/chart/line',
+            'echarts/chart/k'
         ],
         function (ec) {
             // 基于准备好的dom，初始化echarts图表
@@ -19,7 +20,7 @@ function doAjaxdemo() {
             var datefield = $('#datefield').datebox('getValue');
             var dategap = $('#dategap').val();
             var sensorno = $('#sensorno').val();
-            console.info('sensorno:'+sensorno+',datefield:'+datefield+',dategap='+dategap);
+            console.info('sensorno:' + sensorno + ',datefield:' + datefield + ',dategap=' + dategap);
             if (datefield == '' || dategap == '') {
                 alert('有输入项为空！');
                 return;
@@ -38,9 +39,9 @@ function doAjaxdemo() {
                     },
                     error: function (e) {
                         var error = eval("(" + e + ")");
-                        if(error.error == undefined){
+                        if (error.error == undefined) {
                             alert('Error: ' + e);
-                        }else{
+                        } else {
                             alert('Error: ' + error.error);
                         }
 
@@ -82,7 +83,18 @@ function optionFactory(res) {
                 {
                     name: res.unit0name,
                     type: 'line',
-                    data: result0
+                    data: result0,
+                    markPoint: {
+                        data: [
+                            {type: 'max', name: '最大值'},
+                            {type: 'min', name: '最小值'}
+                        ]
+                    },
+                    markLine: {
+                        data: [
+                            {type: 'average', name: '平均值'}
+                        ]
+                    }
                 }];
         }
 
@@ -124,12 +136,34 @@ function optionFactory(res) {
                 {
                     name: res.unit0name,
                     type: 'line',
-                    data: result0
+                    data: result0,
+                    markPoint: {
+                        data: [
+                            {type: 'max', name: '最大值'},
+                            {type: 'min', name: '最小值'}
+                        ]
+                    },
+                    markLine: {
+                        data: [
+                            {type: 'average', name: '平均值'}
+                        ]
+                    }
                 }, {
                     name: res.unit1name,
                     type: 'line',
                     yAxisIndex: 1,
-                    data: result1
+                    data: result1,
+                    markPoint: {
+                        data: [
+                            {type: 'max', name: '最大值'},
+                            {type: 'min', name: '最小值'}
+                        ]
+                    },
+                    markLine: {
+                        data: [
+                            {type: 'average', name: '平均值'}
+                        ]
+                    }
                 }
             ];
         }
@@ -182,17 +216,50 @@ function optionFactory(res) {
                 {
                     name: res.unit0name,
                     type: 'line',
-                    data: result0
+                    data: result0,
+                    markPoint: {
+                        data: [
+                            {type: 'max', name: '最大值'},
+                            {type: 'min', name: '最小值'}
+                        ]
+                    },
+                    markLine: {
+                        data: [
+                            {type: 'average', name: '平均值'}
+                        ]
+                    }
                 }, {
                     name: res.unit1name,
                     type: 'line',
                     yAxisIndex: 1,
-                    data: result1
+                    data: result1,
+                    markPoint: {
+                        data: [
+                            {type: 'max', name: '最大值'},
+                            {type: 'min', name: '最小值'}
+                        ]
+                    },
+                    markLine: {
+                        data: [
+                            {type: 'average', name: '平均值'}
+                        ]
+                    }
                 }, {
                     name: res.unit2name,
                     type: 'line',
                     yAxisIndex: 1,
-                    data: result2
+                    data: result2,
+                    markPoint: {
+                        data: [
+                            {type: 'max', name: '最大值'},
+                            {type: 'min', name: '最小值'}
+                        ]
+                    },
+                    markLine: {
+                        data: [
+                            {type: 'average', name: '平均值'}
+                        ]
+                    }
                 }
             ];
         }
@@ -376,7 +443,7 @@ function formatDate(date) {
  * 解析输入的dateStr，返回Date类型。
  * dateStr: XXXX-XX-XX
  */
-function addDate(dateStr,daysgap) {
+function addDate(dateStr, daysgap) {
     var strArray = dateStr.split("-");
     if (strArray.length == 3) {
         var dateadd = new Date(strArray[0], strArray[1], strArray[2]);
@@ -386,7 +453,7 @@ function addDate(dateStr,daysgap) {
         return new Date();
     }
 }
-function deleteDate(dateStr,daysgap) {
+function deleteDate(dateStr, daysgap) {
     var strArray = dateStr.split("-");
     if (strArray.length == 3) {
         var datedele = new Date(strArray[0], strArray[1], strArray[2]);
@@ -402,20 +469,20 @@ function deleteDate(dateStr,daysgap) {
 function doQueryPrev() {
 
     var datebefore = $('#datefield').datebox('getValue');	// get datebox value
-    if(datebefore==''){
+    if (datebefore == '') {
         datebefore = formatDate(new Date());
     }
 
-    var gap ;
+    var gap;
     var datesgap = $('#dategap').val();
-    if(datesgap == 'month'){
+    if (datesgap == 'month') {
         gap = 30;
-    }else if(datesgap == 'week'){
+    } else if (datesgap == 'week') {
         gap = 7;
-    }else{
+    } else {
         gap = 1;
     }
-    var datePrev = formatDate(deleteDate(datebefore,gap));
+    var datePrev = formatDate(deleteDate(datebefore, gap));
     $('#datefield').datebox('setValue', datePrev);	// set datebox value
     //var vprev = $('#datefield').datebox('getValue');	// get datebox value
     //console.info('prev:'+vprev);
@@ -427,19 +494,19 @@ function doQueryPrev() {
 function doQueryNext() {
 
     var datebefore = $('#datefield').datebox('getValue');	// get datebox value
-    if(datebefore==''){
+    if (datebefore == '') {
         datebefore = formatDate(new Date());
     }
-    var gap ;
+    var gap;
     var datesgap = $('#dategap').val();
-    if(datesgap == 'month'){
+    if (datesgap == 'month') {
         gap = 30;
-    }else if(datesgap == 'week'){
+    } else if (datesgap == 'week') {
         gap = 7;
-    }else{
+    } else {
         gap = 1;
     }
-    var deteNext = formatDate(addDate(datebefore,gap));
+    var deteNext = formatDate(addDate(datebefore, gap));
     $('#datefield').datebox('setValue', deteNext);	// set datebox value
     //var vnext = $('#datefield').datebox('getValue');	// get datebox value
     //console.info('next:'+vnext);
@@ -448,11 +515,11 @@ function doQueryNext() {
 /**
  * 查询初始数据
  */
-function doAjaxHead(){
+function doAjaxHead() {
     var datefield = $('#datefield').datebox('getValue');
     var dategap = $('#dategap').val();
     var sensorno = $('#sensorno').val();
-    console.info('sensorno:'+sensorno+',datefield:'+datefield+',dategap='+dategap);
+    console.info('sensorno:' + sensorno + ',datefield:' + datefield + ',dategap=' + dategap);
     if (sensorno == '' || dategap == '') {
         alert('有输入项为空！');
         return;
@@ -463,15 +530,15 @@ function doAjaxHead(){
             data: "datefield=" + datefield + "&dategap=" + dategap + "&sensorno=" + sensorno,
             success: function (res) {
                 var ores = eval("(" + res + ")");
-                console.info('headTime :'+ores.headDate);
+                console.info('headTime :' + ores.headDate);
                 $('#datefield').datebox('setValue', ores.headDate);	// set datebox value
                 doAjaxdemo();
             },
             error: function (e) {
                 var error = eval("(" + e + ")");
-                if(error.error == undefined){
+                if (error.error == undefined) {
                     alert('异常: ' + e);
-                }else{
+                } else {
                     alert('异常: ' + error.error);
                 }
             }
@@ -481,11 +548,11 @@ function doAjaxHead(){
 /**
  * 查询最新数据
  */
-function doAjaxTail(){
+function doAjaxTail() {
     var datefield = $('#datefield').datebox('getValue');
     var dategap = $('#dategap').val();
     var sensorno = $('#sensorno').val();
-    console.info('sensorno:'+sensorno+',datefield:'+datefield+',dategap='+dategap);
+    console.info('sensorno:' + sensorno + ',datefield:' + datefield + ',dategap=' + dategap);
     if (sensorno == '' || dategap == '') {
         alert('有输入项为空！');
         return;
@@ -496,18 +563,102 @@ function doAjaxTail(){
             data: "datefield=" + datefield + "&dategap=" + dategap + "&sensorno=" + sensorno,
             success: function (res) {
                 var ores = eval("(" + res + ")");
-                console.info('tailDate :'+ores.tailDate);
+                console.info('tailDate :' + ores.tailDate);
                 $('#datefield').datebox('setValue', ores.tailDate);	// set datebox value
                 doAjaxdemo();
             },
             error: function (e) {
                 var error = eval("(" + e + ")");
-                if(error.error == undefined){
+                if (error.error == undefined) {
                     alert('异常: ' + e);
-                }else{
+                } else {
                     alert('异常: ' + error.error);
                 }
             }
         }
     );
+}
+
+// 月统计
+function doMonthSta() {
+    require(
+        [
+            'echarts',
+            'echarts/chart/bar', // 使用柱状图就加载bar模块，按需加载
+            'echarts/chart/line',
+            'echarts/chart/k'
+        ],
+        function (ec) {
+            // 基于准备好的dom，初始化echarts图表
+            var myChart = ec.init(document.getElementById('main'));
+            var option = {
+                tooltip : {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data:['上证指数','平均值','湿度']
+                },
+
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : true,
+                        data : [
+                            "2013/1/24", "2013/1/25", "2013/1/28", "2013/1/29", "2013/1/30"
+                        ]
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value',
+                        name:'最大最小值',
+                        scale:true
+                    },
+                    {
+                        type : 'value',
+                        name:'平均值',
+                        scale:true
+                    },
+                    {
+                        type : 'value',
+                        name:'湿度',
+                        scale:true
+                    }
+                ],
+                series : [
+
+                    {
+                        name:'最大最小值',
+                        type:'k',
+                        data:[ // 开盘，收盘，最低，最高
+                            [110,114,28.3,232.94],
+                            [120,124,28.26,208.38],
+                            [130,134,95.35,236.92],
+                            [140,144,37.35,363.8],
+                            [150,154,37.89,283.76]
+
+                        ]
+                    },
+                    {
+                        name:'平均值',
+                        type:'line',
+                        data:[112, 122, 132,142, 152],
+                        markPoint : {
+                            data : [
+                                {type : 'max', name: '最大值'},
+                                {type : 'min', name: '最小值'}
+                            ]
+                        }
+                    },{
+                        name: '湿度',
+                        type: 'line',
+                        yAxisIndex: 1,
+                        data: [1,2,3,5,1]
+                    }
+                ]
+            };
+
+            myChart.setOption(option);
+        });
+
 }
