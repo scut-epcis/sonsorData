@@ -108,7 +108,21 @@ public class Test {
                     "where sensordata.Sensor_sensorSerialNo=5 " +" ORDER  BY captureTime desc ";
 
 
-            ResultSet rs=stmt.executeQuery(tailDate);
+            ///---------------------sql server sql statistics
+            String statictisSql1 = "select " +
+                    "MAX (channel1_Data) AS  maxdata ,min(channel1_Data) AS  minData , avg(channel1_Data)  AS avgdata , " +
+                    "MAX (channel2_Data) AS  maxdata2 ,min(channel2_Data) AS  minData2 , avg(channel2_Data)  AS avgdata2 , " +
+                    "MAX (channel3_Data) AS  maxdata3 ,min(channel3_Data) AS  minData3 , avg(channel3_Data)  AS avgdata3 , " +
+                    "MAX (channel4_Data) AS  maxdata4 ,min(channel4_Data) AS  minData4 , avg(channel4_Data)  AS avgdata4 , " +
+                    " CONVERT(VARCHAR(10), captureTime, 112)  AS dataclass  " +
+                    "  from webLogger.dbo.sensordata " +
+                    " where sensordata.Sensor_sensorSerialNo=2 " +
+                    " and captureTime BETWEEN  convert(datetime,'2015-10-06')  and convert(datetime,'2015-10-07') " +
+                    " GROUP BY CONVERT(VARCHAR(10), captureTime, 112) ORDER  BY dataclass ";
+
+            // CONVERT(VARCHAR(10), fmdate(), 101)
+
+            ResultSet rs=stmt.executeQuery(statictisSql1);
 
             ResultSetMetaData rsm=rs.getMetaData();
             System.out.println("t_student表有几个字段？"+rsm.getColumnCount());

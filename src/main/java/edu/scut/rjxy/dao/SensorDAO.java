@@ -48,4 +48,13 @@ public interface SensorDAO {
      * @return 时间字符串
      */
     public List<Object[]> getTailDate(String sensorID);
+
+    /**
+     * 计算sensor 在某个时间段的最大值，最小值，平均值
+     * @param sensorID sensor ID
+     * @param beginDate 统计开始时间
+     * @param endDate 统计结束时间
+     * @return 每一天对应一条记录
+     */
+    public List statictisSensorData(String sensorID, String beginDate, String endDate);
 }

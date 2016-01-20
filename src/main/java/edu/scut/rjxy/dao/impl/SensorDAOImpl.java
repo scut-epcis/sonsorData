@@ -71,4 +71,21 @@ public class SensorDAOImpl extends HibernateDaoSupport implements SensorDAO {
 
         return query.list();
     }
+
+    public List statictisSensorData(String sensorID, String beginDate, String endDate){
+        final String statictisSql = "select " +
+        "MAX (channel1_Data) AS  maxdata ,min(channel1_Data) AS  minData , avg(channel1_Data)  AS avgdata , " +
+                "MAX (channel2_Data) AS  maxdata2 ,min(channel2_Data) AS  minData2 , avg(channel2_Data)  AS avgdata2 , " +
+                "MAX (channel3_Data) AS  maxdata3 ,min(channel3_Data) AS  minData3 , avg(channel3_Data)  AS avgdata3 , " +
+                "MAX (channel4_Data) AS  maxdata4 ,min(channel4_Data) AS  minData4 , avg(channel4_Data)  AS avgdata4 , " +
+                " CONVERT(VARCHAR(10), captureTime, 112)  AS dataclass  " +
+                "  from webLogger.dbo.sensordata " +
+                " where sensordata.Sensor_sensorSerialNo= " + sensorID +
+                " and captureTime BETWEEN  convert(datetime,'"+beginDate +"')  and convert(datetime,'"+endDate+"') " +
+                " GROUP BY CONVERT(VARCHAR(10), captureTime, 112) ORDER  BY dataclass ";
+
+        SQLQuery query = this.getSession().createSQLQuery(statictisSql);
+
+        return query.list();
+    }
 }
