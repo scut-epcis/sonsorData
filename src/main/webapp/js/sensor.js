@@ -592,68 +592,143 @@ function doMonthSta() {
             // 基于准备好的dom，初始化echarts图表
             var myChart = ec.init(document.getElementById('main'));
             var option = {
-                tooltip : {
+                tooltip: {
                     trigger: 'axis'
                 },
                 legend: {
-                    data:['上证指数','平均值','湿度']
+                    data: ['上证指数', '平均值', '湿度']
                 },
 
-                xAxis : [
+                xAxis: [
                     {
-                        type : 'category',
-                        boundaryGap : true,
-                        data : [
+                        type: 'category',
+                        boundaryGap: true,
+                        data: [
                             "2013/1/24", "2013/1/25", "2013/1/28", "2013/1/29", "2013/1/30"
                         ]
                     }
                 ],
-                yAxis : [
+                yAxis: [
                     {
-                        type : 'value',
-                        name:'最大最小值',
-                        scale:true
+                        type: 'value',
+                        name: '最大最小值',
+                        scale: true
                     },
                     {
-                        type : 'value',
-                        name:'平均值',
-                        scale:true
+                        type: 'value',
+                        name: '平均值',
+                        scale: true
                     },
                     {
-                        type : 'value',
-                        name:'湿度',
-                        scale:true
+                        type: 'value',
+                        name: '湿度',
+                        scale: true
                     }
                 ],
-                series : [
+                series: [
 
                     {
-                        name:'最大最小值',
-                        type:'k',
-                        data:[ // 开盘，收盘，最低，最高
-                            [110,114,28.3,232.94],
-                            [120,124,28.26,208.38],
-                            [130,134,95.35,236.92],
-                            [140,144,37.35,363.8],
-                            [150,154,37.89,283.76]
+                        name: '最大最小值',
+                        type: 'k',
+                        data: [ // 开盘，收盘，最低，最高
+                            [110, 114, 28.3, 232.94],
+                            [120, 124, 28.26, 208.38],
+                            [130, 134, 95.35, 236.92],
+                            [140, 144, 37.35, 363.8],
+                            [150, 154, 37.89, 283.76]
 
                         ]
                     },
                     {
-                        name:'平均值',
-                        type:'line',
-                        data:[112, 122, 132,142, 152],
-                        markPoint : {
-                            data : [
-                                {type : 'max', name: '最大值'},
-                                {type : 'min', name: '最小值'}
+                        name: '平均值',
+                        type: 'line',
+                        data: [112, 122, 132, 142, 152],
+                        markPoint: {
+                            data: [
+                                {type: 'max', name: '最大值'},
+                                {type: 'min', name: '最小值'}
                             ]
                         }
-                    },{
+                    }, {
                         name: '湿度',
                         type: 'line',
                         yAxisIndex: 1,
-                        data: [1,2,3,5,1]
+                        data: [1, 2, 3, 5, 1]
+                    }
+                ]
+            };
+
+            myChart.setOption(option);
+        });
+
+}
+
+function doMonthStatictis() {
+
+    require(
+        [
+            'echarts',
+            'echarts/chart/bar', // 使用柱状图就加载bar模块，按需加载
+            'echarts/chart/line',
+            'echarts/chart/k'
+        ],
+        function (ec) {
+            // 基于准备好的dom，初始化echarts图表
+            var myChart = ec.init(document.getElementById('main'));
+            var option = {
+                tooltip: {
+                    trigger: 'axis',
+                    formatter: function (params) {
+                        var res = params[0].name;
+                        res += '<br/>  最小 : ' + params[0].value[2] + ' 最大 : ' + params[0].value[3];
+                        return res;
+                    }
+                },
+                legend: {
+                    data: ['最大值最小值', '平均值']
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        boundaryGap: true,
+                        axisTick: {onGap: false},
+                        splitLine: {show: false},
+                        data: [
+                            "2013/1/24", "2013/1/25", "2013/1/28", "2013/1/29", "2013/1/30"
+                        ]
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value',
+                        name:'温度',
+                        scale: true,
+                        min:20
+                    }
+                ],
+                series: [
+                    {
+                        name: '最大值最小值',
+                        type: 'k',
+                        itemStyle:{
+                            normal:{
+                                barBorderColor:'rgba(0,0,0,0)',
+                                color:'#ff7f50'
+                            }
+                        },
+                        data: [ // 开盘，收盘，最低，最高
+                            [23, 27, 23, 27],
+                            [22, 29, 22, 29],
+                            [25, 26, 25, 26],
+                            [23, 25, 23, 25],
+                            [23, 28, 23, 28]
+                        ]
+                    },
+                    {
+                        name: '平均值',
+                        type: 'line',
+                        itemStyle : { normal: {label : {show: true, position: 'top'}}},
+                        data: [25, 26, 25.5, 23.5, 25]
                     }
                 ]
             };
