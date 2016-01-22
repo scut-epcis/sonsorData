@@ -72,13 +72,15 @@ public class SensorDAOImpl extends HibernateDaoSupport implements SensorDAO {
         return query.list();
     }
 
+
+
     public List statictisSensorData(String sensorID, String beginDate, String endDate){
-        final String statictisSql = "select " +
-        "MAX (channel1_Data) AS  maxdata ,min(channel1_Data) AS  minData , avg(channel1_Data)  AS avgdata , " +
+
+        final String statictisSql = "select  CONVERT(VARCHAR(10), captureTime, 112)  AS dataclass ," +
+                "MAX (channel1_Data) AS  maxdata ,min(channel1_Data) AS  minData , avg(channel1_Data)  AS avgdata , " +
                 "MAX (channel2_Data) AS  maxdata2 ,min(channel2_Data) AS  minData2 , avg(channel2_Data)  AS avgdata2 , " +
                 "MAX (channel3_Data) AS  maxdata3 ,min(channel3_Data) AS  minData3 , avg(channel3_Data)  AS avgdata3 , " +
-                "MAX (channel4_Data) AS  maxdata4 ,min(channel4_Data) AS  minData4 , avg(channel4_Data)  AS avgdata4 , " +
-                " CONVERT(VARCHAR(10), captureTime, 112)  AS dataclass  " +
+                "MAX (channel4_Data) AS  maxdata4 ,min(channel4_Data) AS  minData4 , avg(channel4_Data)  AS avgdata4  " +
                 "  from webLogger.dbo.sensordata " +
                 " where sensordata.Sensor_sensorSerialNo= " + sensorID +
                 " and captureTime BETWEEN  convert(datetime,'"+beginDate +"')  and convert(datetime,'"+endDate+"') " +
@@ -87,5 +89,24 @@ public class SensorDAOImpl extends HibernateDaoSupport implements SensorDAO {
         SQLQuery query = this.getSession().createSQLQuery(statictisSql);
 
         return query.list();
+    }
+
+    public int getSensorChennalNumber(String sensorID) {
+        final String chennalNumber =  "select max(sensortypeproperties.channelNumber) AS  chennalNumber " +
+                "from webLogger.dbo.sensortypeproperties,webLogger.dbo.sensor " +
+                "where sensor.sensorSerialNo="+ sensorID + " and sensortypeproperties.sensorType_idSensorType=sensor.idSensorType ";
+        SQLQuery query = this.getSession().createSQLQuery(chennalNumber).addScalar("chennalNumber", new LongType());
+        List list  = query.list()==null?null:query.list();
+        Object result = list == null?null:list.get(0);
+        int channelNo = 0;
+        try{
+            channelNo = Integer.parseInt( result==null?"0":result.toString());
+        }catch (Exception e){
+
+            LOG.error("获取的channel数据不能转为整形，"+e);
+            e.printStackTrace();
+            return 0;
+        }
+        return channelNo ;
     }
 }

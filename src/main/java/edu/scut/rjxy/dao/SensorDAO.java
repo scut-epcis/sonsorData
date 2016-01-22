@@ -57,4 +57,11 @@ public interface SensorDAO {
      * @return 每一天对应一条记录
      */
     public List statictisSensorData(String sensorID, String beginDate, String endDate);
+
+    /**
+     * 获取指定sensor 含有的channel 数目
+     * @param sensorID sensor ID
+     * @return chennal 数目 ，字符串（可转数字）
+     */
+    public int getSensorChennalNumber(String sensorID);
 }

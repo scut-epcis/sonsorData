@@ -67,10 +67,11 @@ public class SensorAction extends ActionSupport
             return "false";
         }
         String sensorID = sensorParameter.getSensorno();
-        String[] queryTime = new String[0];
+        String[] queryTime = new String[2];
         try {
             queryTime = convertQueryTime(sensorParameter.getDatefield(), sensorParameter.getDategap());
         } catch (ParseException e) {
+            LOG.error("获取开始日期有误" + e);
             e.printStackTrace();
         }
 
@@ -100,12 +101,40 @@ public class SensorAction extends ActionSupport
         LOG.debug("execut tail function");
         LOG.debug("sensor parameter is " + sensorParameter);
         if(isNullPartSenPara(sensorParameter)){
-            result = new JSONObject().put("error", "输入参数有误!").toString();
+            result = new JSONObject().put("error", "输入参数不全或有误!").toString();
             return "false";
         }
 
         String sensorID = sensorParameter.getSensorno();
         Map map = sensorService.querySonsorTailDate(sensorID);
+
+        JSONObject json = JSONObject.fromObject(map);//将map对象转换成json类型数据
+        result = json.toString();
+        return "success";
+    }
+
+    public String statictis() throws ParseException {
+        LOG.debug("execut staticts function");
+        LOG.debug("sensor parameter is " + sensorParameter);
+        if(isNullSenPara(sensorParameter)){
+            result = new JSONObject().put("error", "输入参数不全或有误!").toString();
+            return "false";
+        }
+
+        if("day".equals(sensorParameter.getDategap())){
+            // 如果是天换成周
+            sensorParameter.setDategap("week");
+        }
+        String sensorID = sensorParameter.getSensorno();
+        String[] queryTime = new String[2];
+        try {
+            queryTime = convertQueryTime(sensorParameter.getDatefield(), sensorParameter.getDategap());
+        } catch (ParseException e) {
+            LOG.error("获取开始日期有误" + e);
+            e.printStackTrace();
+        }
+
+        Map map = sensorService.getStatictis(sensorID,queryTime[0],queryTime[1]);
 
         JSONObject json = JSONObject.fromObject(map);//将map对象转换成json类型数据
         result = json.toString();

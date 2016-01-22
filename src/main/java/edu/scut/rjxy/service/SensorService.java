@@ -38,5 +38,15 @@ public interface SensorService {
      */
     public Map querySonsorTailDate(String sensorID);
 
+    /**
+     * 查询指定sensor在指定时间内的统计数据
+     * <br>
+     *     最大值，最小值，平均值
+     * @param sensorID sensorID
+     * @param beginTime 开始统计时间 （天） 格式：yyyy-MM-dd
+     * @param endTime 结束时间 （天） 格式：yyyy-MM-dd
+     * @return map格式结果
+     */
+    public Map getStatictis(String sensorID,String beginTime,String endTime);
 
 }

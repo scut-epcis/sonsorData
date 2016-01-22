@@ -5,7 +5,7 @@ require.config({
     }
 });
 
-// 使用
+// 使用 简单查询
 function doAjaxdemo() {
     require(
         [
@@ -673,67 +673,108 @@ function doMonthStatictis() {
             'echarts/chart/k'
         ],
         function (ec) {
-            // 基于准备好的dom，初始化echarts图表
-            var myChart = ec.init(document.getElementById('main'));
-            var option = {
-                tooltip: {
-                    trigger: 'axis',
-                    formatter: function (params) {
-                        var res = params[0].name;
-                        res += '<br/>  最小 : ' + params[0].value[2] + ' 最大 : ' + params[0].value[3];
-                        return res;
-                    }
-                },
-                legend: {
-                    data: ['最大值最小值', '平均值']
-                },
-                xAxis: [
-                    {
-                        type: 'category',
-                        boundaryGap: true,
-                        axisTick: {onGap: false},
-                        splitLine: {show: false},
-                        data: [
-                            "2013/1/24", "2013/1/25", "2013/1/28", "2013/1/29", "2013/1/30"
-                        ]
-                    }
-                ],
-                yAxis: [
-                    {
-                        type: 'value',
-                        name:'温度',
-                        scale: true,
-                        min:20
-                    }
-                ],
-                series: [
-                    {
-                        name: '最大值最小值',
-                        type: 'k',
-                        itemStyle:{
-                            normal:{
-                                barBorderColor:'rgba(0,0,0,0)',
-                                color:'#ff7f50'
-                            }
-                        },
-                        data: [ // 开盘，收盘，最低，最高
-                            [23, 27, 23, 27],
-                            [22, 29, 22, 29],
-                            [25, 26, 25, 26],
-                            [23, 25, 23, 25],
-                            [23, 28, 23, 28]
-                        ]
+
+            var datefield = $('#datefield').datebox('getValue');
+            var dategap = $('#dategap').val();
+            var sensorno = $('#sensorno').val();
+            console.info('sensorno:' + sensorno + ',datefield:' + datefield + ',dategap=' + dategap);
+            if (datefield == '' || dategap == '') {
+                alert('有输入项为空！');
+                return;
+            }
+            $.ajax({
+                    type: 'post',
+                    url: 'statictisSensorAction.action',
+                    data: "datefield=" + datefield + "&dategap=" + dategap + "&sensorno=" + sensorno,
+                    success: function (res) {
+                        // 基于准备好的dom，初始化echarts图表
+                        var ores = eval("(" + res + ")");
+                        var myChart = ec.init(document.getElementById('main'));
+                        // 将数据变成echarts接手的option
+                        var option = optionStatictisFactory(ores);
+                        myChart.setOption(option);
                     },
-                    {
-                        name: '平均值',
-                        type: 'line',
-                        itemStyle : { normal: {label : {show: true, position: 'top'}}},
-                        data: [25, 26, 25.5, 23.5, 25]
+                    error: function (e) {
+                        var error = eval("(" + e + ")");
+                        if (error.error == undefined) {
+                            alert('Error: ' + e);
+                        } else {
+                            alert('Error: ' + error.error);
+                        }
                     }
-                ]
-            };
-
-            myChart.setOption(option);
+                }
+            );
         });
+}
 
+function optionStatictisFactory(res){
+    /**
+     * [ // 开盘，收盘，最低，最高
+     [23, 27, 23, 27],
+     [22, 29, 22, 29],
+     [25, 26, 25, 26],
+     [23, 25, 23, 25],
+     [23, 28, 23, 28]
+     ]
+     * @type {Array}
+     */
+    //
+    var opdata =  [];
+    console.info('记录数目：'+res.statictisNo);
+    console.info('维度：'+res.channelNo);
+    var serkmax  = res.static_0max.split(',');
+    var serkmin  = res.static_0min.split(',');
+    for(var i = 0;i<res.statictisNo;i++){
+        opdata.push([serkmin[i],serkmin[i],serkmax[i],serkmax[i]]);
+    }
+    var optionStatictis = {
+        tooltip: {
+            trigger: 'axis',
+            formatter: function (params) {
+                var res = params[0].name;
+                res += '<br/>  最小 : ' + params[0].value[2] + ' 最大 : ' + params[0].value[3];
+                return res;
+            }
+        },
+        legend: {
+            data: ['最大值最小值', '平均值']
+        },
+        xAxis: [
+            {
+                type: 'category',
+                boundaryGap: true,
+                axisTick: {onGap: false},
+                splitLine: {show: false},
+                data: res.statictisDate.split(',')
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                name:'温度',
+                scale: true,
+                min:20
+            }
+        ],
+        series: [
+            {
+                name: '最大值最小值',
+                type: 'k',
+                itemStyle:{
+                    normal:{
+                        barBorderColor:'rgba(0,0,0,0)',
+                        color:'#ff7f50'
+                    }
+                },
+                data: opdata
+            },
+            {
+                name: '平均值',
+                type: 'line',
+                itemStyle : { normal: {label : {show: true, position: 'top'}}},
+                data: res.static_0avg.split(',')
+            }
+        ]
+    };
+    return optionStatictis;
 }

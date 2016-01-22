@@ -60,9 +60,14 @@ public class Test {
 
             String querySql2 = "select * from webLogger.dbo.sensortypeproperties where sensortypeproperties.sensorType_idSensorType=108";
 
+            String querySql2_1 = "select max(sensortypeproperties.channelNumber) AS  chennalNumber " +
+                    "from webLogger.dbo.sensortypeproperties,webLogger.dbo.sensor " +
+                    "where sensor.sensorSerialNo=2 and sensortypeproperties.sensorType_idSensorType=sensor.idSensorType ";
+
             String querySql3 = "select * from webLogger.dbo.sensorproperties where sensorproperties.idSensorProperties in(1,2)";
 
-            String querySql4 = "select  channelNumber,propertyName,defaultUnits from webLogger.dbo.sensorproperties,webLogger.dbo.sensortypeproperties " +
+            String querySql4 = "select  channelNumber,propertyName,defaultUnits " +
+                    "from webLogger.dbo.sensorproperties,webLogger.dbo.sensortypeproperties " +
                     "where  sensortypeproperties.sensorType_idSensorType=11 " +
                     "and sensorproperties.idSensorProperties = sensorProperties_idSensorProperties";
 
@@ -94,16 +99,13 @@ public class Test {
 
             ///------------------------test
             String testsql1 = "select channelNumber,propertyName,defaultUnits from webLogger.dbo.sensorproperties,webLogger.dbo.sensortypeproperties, webLogger.dbo.sensor  where sensortypeproperties.sensorType_idSensorType=sensor.idSensorType and sensorproperties.idSensorProperties = sensorProperties_idSensorProperties and sensor.sensorSerialNo= 1 and deleted=0";
-
             String testsql2 = "select channelNumber,propertyName,defaultUnits from webLogger.dbo.sensorproperties,webLogger.dbo.sensortypeproperties, webLogger.dbo.sensor  where sensortypeproperties.sensorType_idSensorType=sensor.idSensorType and sensorproperties.idSensorProperties = sensorProperties_idSensorProperties and sensor.sensorSerialNo= 5 and deleted=0 order by channelNumber";
-
             String testSql3 = "select channelNumber,propertyName,defaultUnits from webLogger.dbo.sensorproperties,webLogger.dbo.sensortypeproperties, webLogger.dbo.sensor  where sensortypeproperties.sensorType_idSensorType=sensor.idSensorType and sensorproperties.idSensorProperties = sensorProperties_idSensorProperties and sensor.sensorSerialNo= 8 and deleted=0  order by channelNumber";
 
 
             /////--------------------Sensor Data product Date
             String headDate = "select top 1 channel1_Data, channel2_Data,channel3_Data,channel4_Data,captureTime from webLogger.dbo.sensordata " +
                     "where sensordata.Sensor_sensorSerialNo=5 " +" ORDER  BY captureTime ASC ";
-
             String tailDate = "select top 1 channel1_Data, channel2_Data,channel3_Data,channel4_Data,captureTime from webLogger.dbo.sensordata " +
                     "where sensordata.Sensor_sensorSerialNo=5 " +" ORDER  BY captureTime desc ";
 
@@ -122,7 +124,7 @@ public class Test {
 
             // CONVERT(VARCHAR(10), fmdate(), 101)
 
-            ResultSet rs=stmt.executeQuery(statictisSql1);
+            ResultSet rs=stmt.executeQuery(querySql2_1);
 
             ResultSetMetaData rsm=rs.getMetaData();
             System.out.println("t_student表有几个字段？"+rsm.getColumnCount());

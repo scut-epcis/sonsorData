@@ -174,6 +174,68 @@ public class SensorServiceImpl implements SensorService {
         return map;
     }
 
+    public Map getStatictis(String sensorID, String beginTime, String endTime) {
+        {
+            Map<String, Object> map = new HashMap<String, Object>();
+
+            List<Object[]> statictisSensorData = sensorDAO.statictisSensorData(sensorID,beginTime,endTime);
+            int channelNo = sensorDAO.getSensorChennalNumber(sensorID);
+            LOG.debug("统计记录数目："+statictisSensorData.size()+",数据集维度："+channelNo);
+
+            if(statictisSensorData == null ||statictisSensorData.size() == 0){
+                map.put("statictisNo",0);
+                map.put("channelNo",channelNo);
+                LOG.error("当前sensor 没有有效数据");
+                return map;
+            }
+
+            String[] result = dealStaticResult(channelNo,statictisSensorData);
+            for(int i = 0;i<result.length;){
+                map.put("static_"+i+"max",result[i]);
+                map.put("static_"+i+"min",result[i+1]);
+                map.put("static_"+i+"avg",result[i+2]);
+                i+=3;
+            }
+            map.put("statictisDate",result[0]);
+            map.put("statictisNo",statictisSensorData.size());
+            map.put("channelNo",channelNo);
+            return map;
+        }
+    }
+
+    private String[] dealStaticResult(int channelNo,List<Object[]> items){
+        String[] res = new String[channelNo*3+1];
+
+        for(Object[] item:items){
+            res[0]+=item[0].toString()+",";
+            LOG.debug("统计时间刻度 ："+res[0]);
+            if(channelNo == 0){
+                 continue;
+            }
+            for(int i = 1;i<=channelNo*3;){
+                if(i/3==channelNo){
+                    res[i+1] +=item[i+1].toString() ;
+                    LOG.debug("最大值统计_："+res[i+1]);
+                    res[i+2] +=item[i+2].toString() ;
+                    LOG.debug("最小值统计_："+res[i+2]);
+                    res[i+3] +=item[i+3].toString() ;
+                    LOG.debug("平均值统计_："+res[i+3]);
+                    i+=3;
+                    break;
+                }
+                res[i+1] +=item[i+1].toString() + ",";
+                LOG.debug("最大值统计："+res[i+1]);
+                res[i+2] +=item[i+2].toString() + ",";
+                LOG.debug("最小值统计："+res[i+2]);
+                res[i+3] +=item[i+3].toString() + ",";
+                LOG.debug("平均值统计_："+res[i+3]);
+                i+=3;
+            }
+        }
+
+        return res;
+    }
+
     /**
      * 将关键字转换为中文
      *
