@@ -3,7 +3,7 @@ about sensor data 收集<br>
 orgin分支，包含项目搭建的整个过程，其中有很多测试文件，比较乱。<br>
 realse分支，是一个纯粹的sensor 项目，没有测试文件，代码结构力求清晰。
 
-统一任务
+统一任务<br>
 1.安装和设置intellij（jdk,编码（UTF-8）,maven,git,github）<br>
 2.导出项目(使用realse分支)<br>
 3.修改README.md文件，添加 ** 完成任务X<br>
