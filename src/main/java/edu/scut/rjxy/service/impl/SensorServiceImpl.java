@@ -36,7 +36,7 @@ public class SensorServiceImpl implements SensorService {
         int metaSum = metaData.size();
         LOG.debug("元数据数目：" + metaSum);
         map.put("metaSum", metaSum);
-        if(metaSum == 0){
+        if (metaSum == 0) {
             LOG.error("异常，元数据记录为空，metaSum = " + metaData);
             map.put("result0", "-");
             map.put("shaft", "-");
@@ -47,8 +47,8 @@ public class SensorServiceImpl implements SensorService {
         int metaindex = 0;
 
         for (Object[] row : metaData) {
-            String name_tmp  = row[1]==null?"-":row[1].toString();
-            String abbr_tmp  = row[2]==null?"-":row[2].toString();
+            String name_tmp = row[1] == null ? "-" : row[1].toString();
+            String abbr_tmp = row[2] == null ? "-" : row[2].toString();
             map.put("unit" + metaindex + "name", convertToChinese(name_tmp));
             map.put("unit" + metaindex + "abbr", abbr_tmp);
 
@@ -147,13 +147,13 @@ public class SensorServiceImpl implements SensorService {
 
         List<Object[]> menus = sensorDAO.getHeadDate(sensorID);
 
-        if(menus == null ||menus.size() == 0){
+        if (menus == null || menus.size() == 0) {
             map.put("headDate", DateTimeConvert.formatDate(new Date().toString()));
             LOG.error("当前sensor 没有有效数据");
             return map;
         }
-        String headDate = menus.get(0)[1]== null? new Date().toString():menus.get(0)[1].toString();
-        LOG.debug("sensor对应的初始记录产生时间："+ DateTimeConvert.formatDate(headDate));
+        String headDate = menus.get(0)[1] == null ? new Date().toString() : menus.get(0)[1].toString();
+        LOG.debug("sensor对应的初始记录产生时间：" + DateTimeConvert.formatDate(headDate));
         map.put("headDate", DateTimeConvert.formatDate(headDate));
         return map;
     }
@@ -163,13 +163,13 @@ public class SensorServiceImpl implements SensorService {
 
         List<Object[]> menus = sensorDAO.getTailDate(sensorID);
 
-        if(menus == null ||menus.size() == 0){
+        if (menus == null || menus.size() == 0) {
             map.put("tailDate", DateTimeConvert.formatDate(new Date().toString()));
             LOG.error("当前sensor 没有有效数据");
             return map;
         }
-        String tailDate = menus.get(0)[1]== null? new Date().toString():menus.get(0)[1].toString();
-        LOG.debug("sensor对应的最新的记录产生时间："+ DateTimeConvert.formatDate(tailDate));
+        String tailDate = menus.get(0)[1] == null ? new Date().toString() : menus.get(0)[1].toString();
+        LOG.debug("sensor对应的最新的记录产生时间：" + DateTimeConvert.formatDate(tailDate));
         map.put("tailDate", DateTimeConvert.formatDate(tailDate));
         return map;
     }
@@ -178,58 +178,69 @@ public class SensorServiceImpl implements SensorService {
         {
             Map<String, Object> map = new HashMap<String, Object>();
 
-            List<Object[]> statictisSensorData = sensorDAO.statictisSensorData(sensorID,beginTime,endTime);
+            List<Object[]> statictisSensorData = sensorDAO.statictisSensorData(sensorID, beginTime, endTime);
             int channelNo = sensorDAO.getSensorChennalNumber(sensorID);
-            LOG.debug("统计记录数目："+statictisSensorData.size()+",数据集维度："+channelNo);
+            LOG.debug("统计记录数目：" + statictisSensorData.size() + ",数据集维度：" + channelNo);
 
-            if(statictisSensorData == null ||statictisSensorData.size() == 0){
-                map.put("statictisNo",0);
-                map.put("channelNo",channelNo);
+            if (statictisSensorData == null || statictisSensorData.size() == 0) {
+                map.put("statictisNo", 0);
+                map.put("channelNo", channelNo);
                 LOG.error("当前sensor 没有有效数据");
                 return map;
             }
 
-            String[] result = dealStaticResult(channelNo,statictisSensorData);
-            for(int i = 0;i<result.length;){
-                map.put("static_"+i+"max",result[i]);
-                map.put("static_"+i+"min",result[i+1]);
-                map.put("static_"+i+"avg",result[i+2]);
-                i+=3;
+            String[] result = dealStaticResult(channelNo, statictisSensorData);
+            for (int i = 0; i < result.length-1; ) {
+                map.put("static_" + i + "max", result[i + 1]);//static_0max
+                map.put("static_" + i + "min", result[i + 2]);
+                map.put("static_" + i + "avg", result[i + 3]);
+                i += 3;
             }
-            map.put("statictisDate",result[0]);
-            map.put("statictisNo",statictisSensorData.size());
-            map.put("channelNo",channelNo);
+            map.put("statictisDate", result[0]);
+            map.put("statictisNo", statictisSensorData.size());
+            map.put("channelNo", channelNo);
             return map;
         }
     }
 
-    private String[] dealStaticResult(int channelNo,List<Object[]> items){
-        String[] res = new String[channelNo*3+1];
+    private String[] dealStaticResult(int channelNo, List<Object[]> items) {
+        String[] res = new String[channelNo * 3 + 1];
+        for (int i = 0; i < res.length; i++) {
+            res[i] = "";
+        }
 
-        for(Object[] item:items){
-            res[0]+=item[0].toString()+",";
-            LOG.debug("统计时间刻度 ："+res[0]);
-            if(channelNo == 0){
-                 continue;
+        int itemIndex = 0;
+        for (Object[] item : items) {
+            itemIndex++;
+            if(itemIndex>=items.size()){
+                res[0] += item[0].toString();
+
+            }else{
+                res[0] += item[0].toString() + ",";
+
             }
-            for(int i = 1;i<=channelNo*3;){
-                if(i/3==channelNo){
-                    res[i+1] +=item[i+1].toString() ;
-                    LOG.debug("最大值统计_："+res[i+1]);
-                    res[i+2] +=item[i+2].toString() ;
-                    LOG.debug("最小值统计_："+res[i+2]);
-                    res[i+3] +=item[i+3].toString() ;
-                    LOG.debug("平均值统计_："+res[i+3]);
-                    i+=3;
-                    break;
+            LOG.debug("统计时间刻度 ：" + res[0]);
+            if (channelNo == 0) {
+                continue;
+            }
+            for (int i = 1; i <= channelNo * 3; ) {
+                if (itemIndex >= items.size()) {
+                    res[i] += item[i].toString();
+                    LOG.debug("最大值统计_：" + res[i]);
+                    res[i + 1] += item[i + 1].toString();
+                    LOG.debug("最小值统计_：" + res[i + 1]);
+                    res[i + 2] += item[i + 2].toString().substring(0, 5);
+                    LOG.debug("平均值统计_：" + res[i + 2]);
+                    i += 3;
+                } else {
+                    res[i] += item[i].toString() + ",";
+//                    LOG.debug("最大值统计：" + res[i]);
+                    res[i + 1] += item[i + 1].toString() + ",";
+//                    LOG.debug("最小值统计：" + res[i + 1]);
+                    res[i + 2] += item[i + 2].toString().substring(0,5) + ",";
+//                    LOG.debug("平均值统计：" + res[i + 2]);
+                    i += 3;
                 }
-                res[i+1] +=item[i+1].toString() + ",";
-                LOG.debug("最大值统计："+res[i+1]);
-                res[i+2] +=item[i+2].toString() + ",";
-                LOG.debug("最小值统计："+res[i+2]);
-                res[i+3] +=item[i+3].toString() + ",";
-                LOG.debug("平均值统计_："+res[i+3]);
-                i+=3;
             }
         }
 

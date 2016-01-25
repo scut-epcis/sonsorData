@@ -725,7 +725,7 @@ function optionStatictisFactory(res){
     var serkmax  = res.static_0max.split(',');
     var serkmin  = res.static_0min.split(',');
     for(var i = 0;i<res.statictisNo;i++){
-        opdata.push([serkmin[i],serkmin[i],serkmax[i],serkmax[i]]);
+        opdata.push([serkmin[i],serkmax[i],serkmin[i],serkmax[i]]);
     }
     var optionStatictis = {
         tooltip: {
@@ -753,7 +753,7 @@ function optionStatictisFactory(res){
                 type: 'value',
                 name:'温度',
                 scale: true,
-                min:20
+                min:23
             }
         ],
         series: [
