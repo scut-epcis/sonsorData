@@ -2,7 +2,9 @@
  * Created by bryan on 2016/1/25.
  */
 function doMonthStatictis() {
-
+    $("#main1").remove();
+    $("#main2").remove();
+    $("#main3").remove();
     require(
         [
             'echarts',
@@ -161,7 +163,8 @@ function optionStatictisFactory(res){
                 trigger: 'axis',
                 formatter: function (params) {
                     var res = params[0].name;
-                    res += '<br/>  最小 : ' + params[0].value[2] + ' 最大 : ' + params[0].value[3];
+                    res += '<br/>  最小值 : ' + params[0].value[2] + ' 最大值 : ' + params[0].value[3];
+                    res +='<br> 平均值：' +params[1].value;
                     return res;
                 }
             },

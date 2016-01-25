@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8">
-    <title>先生My first Chartis Tests </title>
+    <title> first Chartis </title>
 
     <script src="dist/echarts.js"></script>
     <script src="js/jquery-1.11.3.min.js"></script>
@@ -15,6 +15,7 @@
     <link rel="stylesheet" type="text/css" href="themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="themes/icon.css">
     <link rel="stylesheet" type="text/css" href="css/demo.css">
+    <link rel="stylesheet" type="text/css" href="css/buttons.css">
 
 </head>
 <body>
@@ -55,18 +56,18 @@
                             <option value="month">一月内</option>
                         </select>
                     </td>
-                    <td><input type="button" value="查询" onclick="doAjaxdemo();"/>
+                    <td><input type="button" value="查询" class="button button-myfont button-primary button-pill button-small" onclick="doAjaxdemo();"/>
                     </td>
                 <tr>
-                    <td><input type="button" value="向前查询" onclick="doQueryPrev();"/>
+                    <td><input type="button" value="向前查询" class="button button-myfont button-primary button-rounded button-small" onclick="doQueryPrev();"/>
                     </td>
-                    <td><input type="button" value="向后查询" onclick="doQueryNext();"/>
+                    <td><input type="button" value="向后查询" class="button button-myfont button-primary button-rounded button-small" onclick="doQueryNext();"/>
                     </td>
-                    <td><input type="button" value="最初数据" onclick="doAjaxHead();"/>
+                    <td><input type="button" value="最初数据" class="button button-myfont button-primary button-rounded button-small" onclick="doAjaxHead();"/>
                     </td>
-                    <td><input type="button" value="最新数据" onclick="doAjaxTail();"/>
+                    <td><input type="button" value="最新数据"  class="button button-myfont button-primary button-rounded button-small" onclick="doAjaxTail();"/>
                     </td>
-                    <td><input type="button" value="统计" onclick="doMonthStatictis();"/>
+                    <td><input type="button" value="统计" class="button button-myfont button-primary button-pill button-small" onclick="doMonthStatictis();"/>
                     </td>
                 </tr>
                 </tr>
