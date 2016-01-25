@@ -36,6 +36,14 @@ public interface SensorDAO {
     public List getMenu();
 
     /**
+     * 查询主目录主干名称
+     * <br>
+     *     使用sites 表中的 siteName 字段
+     * @return
+     */
+    public String getMainMenu();
+
+    /**
      * 从数据库中找到指定sensor中，第一条记录产生的时间
      * @param sensorID sensor ID
      * @return 时间字符串

@@ -38,13 +38,20 @@ public class SensorDAOImpl extends HibernateDaoSupport implements SensorDAO {
         final String menuSql = "select grid.idGrid,grid.gridName,sensor.sensorSerialNo,sensor.sensorName " +
                 " from webLogger.dbo.grid,webLogger.dbo.gridsensor,webLogger.dbo.sensor " +
                 " where gridsensor.deleted=0 and grid.idGrid = gridsensor.idGrid " +
-                " and gridsensor.sensorSerialNo = sensor.sensorSerialNo and sensor.deleted=0 order by grid.idGrid ";;
+                " and gridsensor.sensorSerialNo = sensor.sensorSerialNo and sensor.deleted=0 order by grid.idGrid ";
         SQLQuery query = this.getSession().createSQLQuery(menuSql)
                 .addScalar("idGrid", new LongType())
                 .addScalar("gridName", new StringType())
                 .addScalar("sensorSerialNo", new LongType())
                 .addScalar("sensorName", new StringType());
         return query.list();
+    }
+
+    public String getMainMenu() {
+        final String mainMenuSql = "select siteName from webLogger.dbo.sites ";
+        SQLQuery query = this.getSession().createSQLQuery(mainMenuSql).addScalar("siteName", new StringType());
+        final String str = query.list()==null ?"主目录":query.list().get(0)==null?"主目录":query.list().get(0).toString();
+        return str;
     }
 
     public List<Object[]> getHeadDate(String sensorID) {

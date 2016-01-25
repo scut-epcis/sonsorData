@@ -137,7 +137,9 @@ public class SensorServiceImpl implements SensorService {
     public Map getMenu() {
 
         List<Object[]> menus = sensorDAO.getMenu();
-        Map<String, Object> map = handleMenu(menus);
+        String mainMenu = sensorDAO.getMainMenu();
+        LOG.debug("主目录主干名称："+mainMenu);
+        Map<String, Object> map = handleMenu(mainMenu, menus);
 
         return map;
     }
@@ -186,7 +188,7 @@ public class SensorServiceImpl implements SensorService {
             if (metaSum == 0) {
                 LOG.error("异常，元数据记录为空，metaSum = " + metaData);
                 map.put("result0", "-");
-                map.put("channelNo",0);
+                map.put("channelNo", 0);
                 return null;
             }
 
@@ -212,7 +214,7 @@ public class SensorServiceImpl implements SensorService {
             }
 
             String[] result = dealStaticResult(channelNo, statictisSensorData);
-            for (int i = 0; (i*3) < result.length-1;i++ ) {
+            for (int i = 0; (i * 3) < result.length - 1; i++) {
                 map.put("static_" + i + "max", result[i + 1]);//static_0max
                 map.put("static_" + i + "min", result[i + 2]);
                 map.put("static_" + i + "avg", result[i + 3]);
@@ -234,10 +236,10 @@ public class SensorServiceImpl implements SensorService {
         int itemIndex = 0;
         for (Object[] item : items) {
             itemIndex++;
-            if(itemIndex>=items.size()){
+            if (itemIndex >= items.size()) {
                 res[0] += item[0].toString();
 
-            }else{
+            } else {
                 res[0] += item[0].toString() + ",";
 
             }
@@ -291,16 +293,18 @@ public class SensorServiceImpl implements SensorService {
      * 转换为map 格式的目录
      * <br>
      * 一级目录：二级目录，二级目录
-     *
+     * @param mainMenu 主目录主干名称
      * @param menus 数据库记录
      * @return 被格式化的目录
      */
-    private Map handleMenu(List<Object[]> menus) {
+    private Map handleMenu(String mainMenu, List<Object[]> menus) {
 
         if (menus == null) {
             return null;
         }
         Map<String, Object> map = new HashMap<String, Object>();
+
+        map.put("mainMenu",mainMenu);
 
         Object[] previous = menus.get(0);
 
@@ -345,7 +349,7 @@ public class SensorServiceImpl implements SensorService {
             map.put("second_1key", sonsorKey.substring(0, sonsorKey.length() - 1));
         }
 
-        LOG.debug("menu map :" + map);
+        LOG.debug("menu map(目录情况) :" + map);
         return map;
     }
 
