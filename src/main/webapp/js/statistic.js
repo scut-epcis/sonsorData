@@ -17,7 +17,7 @@ function doMonthStatictis() {
             var datefield = $('#datefield').datebox('getValue');
             var dategap = $('#dategap').val();
             var sensorno = $('#sensorno').val();
-            console.info('sensorno:' + sensorno + ',datefield:' + datefield + ',dategap=' + dategap);
+            //console.info('sensorno:' + sensorno + ',datefield:' + datefield + ',dategap=' + dategap);
             if (datefield == '' || dategap == '') {
                 alert('有输入项为空！');
                 return;
@@ -97,8 +97,8 @@ function optionStatictisFactory(res){
     var op1data =  [];
     var op2data =  [];
     var op3data =  [];
-    console.info('记录数目：'+res.statictisNo);
-    console.info('维度：'+res.channelNo);
+    //console.info('记录数目：'+res.statictisNo);
+    //console.info('维度：'+res.channelNo);
     if(res.channelNo == 2){
         var serkmax  = res.static_0max.split(',');
         var serkmin  = res.static_0min.split(',');
