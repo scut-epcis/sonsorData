@@ -178,6 +178,28 @@ public class SensorServiceImpl implements SensorService {
         {
             Map<String, Object> map = new HashMap<String, Object>();
 
+            // 元数据
+            List<Object[]> metaData = sensorDAO.querySensorMetaData(sensorID);
+            int metaSum = metaData.size();
+            LOG.debug("元数据数目：" + metaSum);
+            map.put("metaSum", metaSum);
+            if (metaSum == 0) {
+                LOG.error("异常，元数据记录为空，metaSum = " + metaData);
+                map.put("result0", "-");
+                map.put("channelNo",0);
+                return null;
+            }
+
+            int metaindex = 0;
+            for (Object[] row : metaData) {
+                String name_tmp = row[1] == null ? "-" : row[1].toString();
+                String abbr_tmp = row[2] == null ? "-" : row[2].toString();
+                map.put("unit" + metaindex + "name", convertToChinese(name_tmp));
+                map.put("unit" + metaindex + "abbr", abbr_tmp);
+                metaindex++;
+            }
+
+            // 数据
             List<Object[]> statictisSensorData = sensorDAO.statictisSensorData(sensorID, beginTime, endTime);
             int channelNo = sensorDAO.getSensorChennalNumber(sensorID);
             LOG.debug("统计记录数目：" + statictisSensorData.size() + ",数据集维度：" + channelNo);
@@ -190,11 +212,11 @@ public class SensorServiceImpl implements SensorService {
             }
 
             String[] result = dealStaticResult(channelNo, statictisSensorData);
-            for (int i = 0; i < result.length-1; ) {
+            for (int i = 0; (i*3) < result.length-1;i++ ) {
                 map.put("static_" + i + "max", result[i + 1]);//static_0max
                 map.put("static_" + i + "min", result[i + 2]);
                 map.put("static_" + i + "avg", result[i + 3]);
-                i += 3;
+
             }
             map.put("statictisDate", result[0]);
             map.put("statictisNo", statictisSensorData.size());
@@ -219,7 +241,7 @@ public class SensorServiceImpl implements SensorService {
                 res[0] += item[0].toString() + ",";
 
             }
-            LOG.debug("统计时间刻度 ：" + res[0]);
+//            LOG.debug("统计时间刻度 ：" + res[0]);
             if (channelNo == 0) {
                 continue;
             }
@@ -237,7 +259,7 @@ public class SensorServiceImpl implements SensorService {
 //                    LOG.debug("最大值统计：" + res[i]);
                     res[i + 1] += item[i + 1].toString() + ",";
 //                    LOG.debug("最小值统计：" + res[i + 1]);
-                    res[i + 2] += item[i + 2].toString().substring(0,5) + ",";
+                    res[i + 2] += item[i + 2].toString().substring(0, 5) + ",";
 //                    LOG.debug("平均值统计：" + res[i + 2]);
                     i += 3;
                 }

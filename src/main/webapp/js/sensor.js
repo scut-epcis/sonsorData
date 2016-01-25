@@ -7,6 +7,9 @@ require.config({
 
 // 使用 简单查询
 function doAjaxdemo() {
+    $("#main1").remove();
+    $("#main2").remove();
+    $("#main3").remove();
     require(
         [
             'echarts',
@@ -468,6 +471,10 @@ function deleteDate(dateStr, daysgap) {
  */
 function doQueryPrev() {
 
+    $("#main1").remove();
+    $("#main2").remove();
+    $("#main3").remove();
+
     var datebefore = $('#datefield').datebox('getValue');	// get datebox value
     if (datebefore == '') {
         datebefore = formatDate(new Date());
@@ -493,6 +500,10 @@ function doQueryPrev() {
  */
 function doQueryNext() {
 
+    $("#main1").remove();
+    $("#main2").remove();
+    $("#main3").remove();
+
     var datebefore = $('#datefield').datebox('getValue');	// get datebox value
     if (datebefore == '') {
         datebefore = formatDate(new Date());
@@ -516,6 +527,10 @@ function doQueryNext() {
  * 查询初始数据
  */
 function doAjaxHead() {
+    $("#main1").remove();
+    $("#main2").remove();
+    $("#main3").remove();
+
     var datefield = $('#datefield').datebox('getValue');
     var dategap = $('#dategap').val();
     var sensorno = $('#sensorno').val();
@@ -549,6 +564,10 @@ function doAjaxHead() {
  * 查询最新数据
  */
 function doAjaxTail() {
+    $("#main1").remove();
+    $("#main2").remove();
+    $("#main3").remove();
+
     var datefield = $('#datefield').datebox('getValue');
     var dategap = $('#dategap').val();
     var sensorno = $('#sensorno').val();
@@ -579,202 +598,4 @@ function doAjaxTail() {
     );
 }
 
-// 月统计
-function doMonthSta() {
-    require(
-        [
-            'echarts',
-            'echarts/chart/bar', // 使用柱状图就加载bar模块，按需加载
-            'echarts/chart/line',
-            'echarts/chart/k'
-        ],
-        function (ec) {
-            // 基于准备好的dom，初始化echarts图表
-            var myChart = ec.init(document.getElementById('main'));
-            var option = {
-                tooltip: {
-                    trigger: 'axis'
-                },
-                legend: {
-                    data: ['上证指数', '平均值', '湿度']
-                },
 
-                xAxis: [
-                    {
-                        type: 'category',
-                        boundaryGap: true,
-                        data: [
-                            "2013/1/24", "2013/1/25", "2013/1/28", "2013/1/29", "2013/1/30"
-                        ]
-                    }
-                ],
-                yAxis: [
-                    {
-                        type: 'value',
-                        name: '最大最小值',
-                        scale: true
-                    },
-                    {
-                        type: 'value',
-                        name: '平均值',
-                        scale: true
-                    },
-                    {
-                        type: 'value',
-                        name: '湿度',
-                        scale: true
-                    }
-                ],
-                series: [
-
-                    {
-                        name: '最大最小值',
-                        type: 'k',
-                        data: [ // 开盘，收盘，最低，最高
-                            [110, 114, 28.3, 232.94],
-                            [120, 124, 28.26, 208.38],
-                            [130, 134, 95.35, 236.92],
-                            [140, 144, 37.35, 363.8],
-                            [150, 154, 37.89, 283.76]
-
-                        ]
-                    },
-                    {
-                        name: '平均值',
-                        type: 'line',
-                        data: [112, 122, 132, 142, 152],
-                        markPoint: {
-                            data: [
-                                {type: 'max', name: '最大值'},
-                                {type: 'min', name: '最小值'}
-                            ]
-                        }
-                    }, {
-                        name: '湿度',
-                        type: 'line',
-                        yAxisIndex: 1,
-                        data: [1, 2, 3, 5, 1]
-                    }
-                ]
-            };
-
-            myChart.setOption(option);
-        });
-
-}
-
-function doMonthStatictis() {
-
-    require(
-        [
-            'echarts',
-            'echarts/chart/bar', // 使用柱状图就加载bar模块，按需加载
-            'echarts/chart/line',
-            'echarts/chart/k'
-        ],
-        function (ec) {
-
-            var datefield = $('#datefield').datebox('getValue');
-            var dategap = $('#dategap').val();
-            var sensorno = $('#sensorno').val();
-            console.info('sensorno:' + sensorno + ',datefield:' + datefield + ',dategap=' + dategap);
-            if (datefield == '' || dategap == '') {
-                alert('有输入项为空！');
-                return;
-            }
-            $.ajax({
-                    type: 'post',
-                    url: 'statictisSensorAction.action',
-                    data: "datefield=" + datefield + "&dategap=" + dategap + "&sensorno=" + sensorno,
-                    success: function (res) {
-                        // 基于准备好的dom，初始化echarts图表
-                        var ores = eval("(" + res + ")");
-                        var myChart = ec.init(document.getElementById('main'));
-                        // 将数据变成echarts接手的option
-                        var option = optionStatictisFactory(ores);
-                        myChart.setOption(option);
-                    },
-                    error: function (e) {
-                        var error = eval("(" + e + ")");
-                        if (error.error == undefined) {
-                            alert('Error: ' + e);
-                        } else {
-                            alert('Error: ' + error.error);
-                        }
-                    }
-                }
-            );
-        });
-}
-
-function optionStatictisFactory(res){
-    /**
-     * [ // 开盘，收盘，最低，最高
-     [23, 27, 23, 27],
-     [22, 29, 22, 29],
-     [25, 26, 25, 26],
-     [23, 25, 23, 25],
-     [23, 28, 23, 28]
-     ]
-     * @type {Array}
-     */
-    //
-    var opdata =  [];
-    console.info('记录数目：'+res.statictisNo);
-    console.info('维度：'+res.channelNo);
-    var serkmax  = res.static_0max.split(',');
-    var serkmin  = res.static_0min.split(',');
-    for(var i = 0;i<res.statictisNo;i++){
-        opdata.push([serkmin[i],serkmax[i],serkmin[i],serkmax[i]]);
-    }
-    var optionStatictis = {
-        tooltip: {
-            trigger: 'axis',
-            formatter: function (params) {
-                var res = params[0].name;
-                res += '<br/>  最小 : ' + params[0].value[2] + ' 最大 : ' + params[0].value[3];
-                return res;
-            }
-        },
-        legend: {
-            data: ['最大值最小值', '平均值']
-        },
-        xAxis: [
-            {
-                type: 'category',
-                boundaryGap: true,
-                axisTick: {onGap: false},
-                splitLine: {show: false},
-                data: res.statictisDate.split(',')
-            }
-        ],
-        yAxis: [
-            {
-                type: 'value',
-                name:'温度',
-                scale: true,
-                min:23
-            }
-        ],
-        series: [
-            {
-                name: '最大值最小值',
-                type: 'k',
-                itemStyle:{
-                    normal:{
-                        barBorderColor:'rgba(0,0,0,0)',
-                        color:'#ff7f50'
-                    }
-                },
-                data: opdata
-            },
-            {
-                name: '平均值',
-                type: 'line',
-                itemStyle : { normal: {label : {show: true, position: 'top'}}},
-                data: res.static_0avg.split(',')
-            }
-        ]
-    };
-    return optionStatictis;
-}
