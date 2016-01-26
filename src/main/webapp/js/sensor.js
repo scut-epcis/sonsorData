@@ -86,6 +86,19 @@ function optionFactory(res) {
                 {
                     name: res.unit0name,
                     type: 'line',
+                    symbol:'emptyCircle',
+                    symbolSize:1,
+                    itemStyle: {
+                        normal: {
+                            lineStyle: {
+                                width: 1,
+                                type:'dotted',
+                                shadowColor : 'rgba(255,165,0,0.6)',
+                                shadowBlur: 1000
+                            }
+                        }
+
+                    },
                     data: result0,
                     markPoint: {
                         data: [
@@ -139,6 +152,19 @@ function optionFactory(res) {
                 {
                     name: res.unit0name,
                     type: 'line',
+                    symbol:'emptyCircle',
+                    symbolSize:1,
+                    itemStyle: {
+                        normal: {
+                            lineStyle: {
+                                width: 2,
+                                color: 'red',
+                                type:'dotted',
+                                shadowColor : 'rgba(255,165,0,0.6)',
+                                shadowBlur: 1000
+                            }
+                        }
+                    },
                     data: result0,
                     markPoint: {
                         data: [
@@ -154,6 +180,20 @@ function optionFactory(res) {
                 }, {
                     name: res.unit1name,
                     type: 'line',
+                    symbol:'emptyCircle',
+                    symbolSize:1,
+                    itemStyle: {
+                        normal: {
+                            lineStyle: {
+                                width: 2,
+                                color: '#30e0e0',
+                                type:'dotted',
+                                shadowColor : 'rgba(255,165,0,0.6)',
+                                shadowBlur: 1000
+                            }
+                        }
+
+                    },
                     yAxisIndex: 1,
                     data: result1,
                     markPoint: {
@@ -219,6 +259,17 @@ function optionFactory(res) {
                 {
                     name: res.unit1name,
                     type: 'line',
+                    symbol:'triangle',
+                    symbolSize:1,
+                    itemStyle: {
+                        normal: {
+                            color: 'red',
+                            lineStyle: {        // 系列级个性化折线样式
+                                width: 2,
+                                type: 'dashed'
+                            }
+                        }
+                    },
                     data: result1,
                     markPoint: {
                         data: [
@@ -234,6 +285,20 @@ function optionFactory(res) {
                 }, {
                     name: res.unit0name,
                     type: 'line',
+                    symbol:'emptyDiamond',
+                    symbolSize:1,
+                    itemStyle: {
+                        normal: {
+                            lineStyle: {
+                                width: 2,
+                                color: '#ff6347',
+                                type:'dotted',
+                                shadowColor : 'rgba(255,165,0,0.6)',
+                                shadowBlur: 1000
+                            }
+                        }
+
+                    },
                     yAxisIndex: 1,
                     data: result0,
                     markPoint: {
@@ -250,6 +315,20 @@ function optionFactory(res) {
                 }, {
                     name: res.unit2name,
                     type: 'line',
+                    symbol:'emptyCircle',
+                    symbolSize:1,
+                    itemStyle: {
+                        normal: {
+                            lineStyle: {
+                                width: 2,
+                                color: '#30e0e0',
+                                type:'dotted',
+                                shadowColor : 'rgba(255,165,0,0.6)',
+                                shadowBlur: 1000
+                            }
+                        }
+
+                    },
                     yAxisIndex: 1,
                     data: result2,
                     markPoint: {
