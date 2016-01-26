@@ -15,6 +15,7 @@ realse分支，是一个纯粹的sensor 项目，没有测试文件，代码结�
 目前系统中展示查询和统计结果的图标没有标题。请将每个图标添加一个标题。
 <br>标题格式为：sensorname (物理ID=** ，sensorID=**)
 <br>添加标题的方式参考：echarts.baidu.com
+<br>
     title : {
         text: 'sensorname (物理ID=** ，sensorID=**)',
     }
