@@ -12,7 +12,12 @@ realse分支，是一个纯粹的sensor 项目，没有测试文件，代码结�
 6.按照任务要求，修改代码，并将代码提交到新建分支中。<br>
 
 任务一<br>
-(待定)
+目前系统中展示查询和统计结果的图标没有标题。请将每个图标添加一个标题。
+<br>标题格式为：sensorname (物理ID=** ，sensorID=**)
+<br>添加标题的方式参考：echarts.baidu.com
+    title : {
+        text: 'sensorname (物理ID=** ，sensorID=**)',
+    }
 
 任务二<br>
 因为echart只能支持在一个图中支持最多两个纵轴，但是传感器数据最多可能有四维。
