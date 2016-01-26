@@ -12,7 +12,7 @@ import java.util.Date;
 
 public final class DateTimeConvert {
 
-    private static  final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    private static  final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     /**
      * 获取指定日期所在week的周一日期
@@ -21,7 +21,6 @@ public final class DateTimeConvert {
      * @throws ParseException
      */
     public static final String getWeekFirst(String now) throws ParseException {
-
         Calendar cal = Calendar.getInstance();
         Date date11=format.parse(now);
         cal.setTime(date11);
@@ -96,6 +95,7 @@ public final class DateTimeConvert {
     }
 
     public static final String getMonthLast(String now) throws ParseException {
+
         //获取当前月最后一天
         Calendar ca = Calendar.getInstance();
         Date date11=format.parse(now);
@@ -113,11 +113,12 @@ public final class DateTimeConvert {
      * @throws ParseException
      */
     public static final String getNextDay(String now) throws ParseException {
-
+//        System.out.println("-----------"+now);
         Calendar rightNow = Calendar.getInstance();
         rightNow.setTime(format.parse(now));
         rightNow.add(Calendar.DAY_OF_MONTH,1);
         String nextDate = format.format(rightNow.getTime());
+//        System.out.println(nextDate+"------------------");
         return nextDate;
     }
 
@@ -128,15 +129,16 @@ public final class DateTimeConvert {
      */
     public static final String formatDate(String date){
 
-        if(date.length() <=10){
+        if(date.length() <=19){
             return getFormateDate();
         }
         try{
-            format.parse(date.substring(0,10));
+            // HH:mm:ss
+            format.parse(date.substring(0,19));
         }catch (ParseException e) {
             return getFormateDate();
         }
-        return date.substring(0,10);
+        return date.substring(0,19);
     }
 
     /**

@@ -16,9 +16,20 @@ public interface SensorDAO {
      * @param sensorID 传感器ID
      * @param beginDate 开始时间段
      * @param endDate   结束时间段
-     * @return
+     * @return 所有数据
      */
     public List querySensorData(String sensorID,String beginDate,String endDate);
+
+    /**
+     * 查询传感器某个时段的数据
+     * <br> 使用维度
+     * @param dlNo 维度数目
+     * @param sensorID sensorID
+     * @param beginDate 开始时间
+     * @param endDate 结束时间
+     * @return （维度）传感器数据
+     */
+    public List querySensorData(int dlNo,String sensorID,String beginDate,String endDate);
 
     /**
      * 查询传感器对应的元数据

@@ -55,7 +55,7 @@ public class SensorServiceImpl implements SensorService {
             metaindex++;
         }
 
-        List<Object[]> data = sensorDAO.querySensorData(sensorID, beginTime, endTime);
+        List<Object[]> data = sensorDAO.querySensorData(metaSum,sensorID, beginTime, endTime);
         int dataSum = data.size();
         LOG.debug("记录数目：" + dataSum);
         map.put("dataSum", dataSum);
@@ -67,23 +67,23 @@ public class SensorServiceImpl implements SensorService {
 
         for (Object[] row : data) {
             if (metaSum == 1) {
-                n0 += row[0].toString() + ",";
+                n0 += row[1].toString() + ",";
             } else if (metaSum == 2) {
-                n0 += row[0].toString() + ",";
-                n1 += row[1].toString() + ",";
+                n0 += row[1].toString() + ",";
+                n1 += row[2].toString() + ",";
             } else if (metaSum == 3) {
-                n0 += row[0].toString() + ",";
-                n1 += row[1].toString() + ",";
-                n2 += row[2].toString() + ",";
+                n0 += row[1].toString() + ",";
+                n1 += row[2].toString() + ",";
+                n2 += row[3].toString() + ",";
 
             } else if (metaSum == 4) {
-                n0 += row[0].toString() + ",";
-                n1 += row[1].toString() + ",";
-                n2 += row[2].toString() + ",";
-                n3 += row[3].toString() + ",";
+                n0 += row[1].toString() + ",";
+                n1 += row[2].toString() + ",";
+                n2 += row[3].toString() + ",";
+                n3 += row[4].toString() + ",";
             }
 
-            n4 += row[4].toString() + ",";
+            n4 += row[0].toString() + ",";
         }
 
         if (dataSum == 0) {

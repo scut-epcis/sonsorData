@@ -79,6 +79,32 @@ public class SensorDAOImpl extends HibernateDaoSupport implements SensorDAO {
         return query.list();
     }
 
+    public List querySensorData(int dlNo, String sensorID, String beginDate, String endDate) {
+        SQLQuery query = null;
+        if (dlNo == 1) {
+            final String sql = "select captureTime,channel1_Data from webLogger.dbo.sensordata " +
+                    " where sensordata.Sensor_sensorSerialNo=" + sensorID +
+                    " and captureTime BETWEEN  convert(datetime,'" + beginDate + "')  and convert(datetime,'" + endDate + "') ";
+            query= this.getSession().createSQLQuery(sql);
+        }else if(dlNo == 2){
+            final String sql = "select captureTime, channel1_Data, channel2_Data from webLogger.dbo.sensordata " +
+                    " where sensordata.Sensor_sensorSerialNo=" + sensorID +
+                    " and captureTime BETWEEN  convert(datetime,'" + beginDate + "')  and convert(datetime,'" + endDate + "') ";
+            query= this.getSession().createSQLQuery(sql);
+        }else if(dlNo == 3){
+            final String sql = "select captureTime, channel1_Data, channel2_Data,channel3_Data from webLogger.dbo.sensordata " +
+                    " where sensordata.Sensor_sensorSerialNo=" + sensorID +
+                    " and captureTime BETWEEN  convert(datetime,'" + beginDate + "')  and convert(datetime,'" + endDate + "') ";
+            query= this.getSession().createSQLQuery(sql);
+        }else{
+            final String sql = "select captureTime, channel1_Data, channel2_Data,channel3_Data,channel4_Data from webLogger.dbo.sensordata " +
+                    " where sensordata.Sensor_sensorSerialNo=" + sensorID +
+                    " and captureTime BETWEEN  convert(datetime,'" + beginDate + "')  and convert(datetime,'" + endDate + "') ";
+            query= this.getSession().createSQLQuery(sql);
+        }
+
+        return query.list();
+    }
 
 
     public List statictisSensorData(String sensorID, String beginDate, String endDate){

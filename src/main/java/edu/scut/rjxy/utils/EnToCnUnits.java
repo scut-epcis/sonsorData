@@ -31,13 +31,13 @@ public final class EnToCnUnits {
         InputStream input = null;
 
         try {
-            LOG.debug("---------------------------------------------------test");
+//            LOG.debug("---------------------------------------------------test");
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
             Properties properties = new Properties();
             properties.load(new InputStreamReader(classLoader.getResourceAsStream("translate.properties"),"UTF-8"));
 
             value = properties.getProperty(key);
-            LOG.debug("中文 " + value);
+//            LOG.debug("中文 " + value);
         } catch (IOException ex) {
             LOG.error(ex);
             ex.printStackTrace();

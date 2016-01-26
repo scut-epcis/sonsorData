@@ -74,7 +74,7 @@ public class SensorAction extends ActionSupport
             LOG.error("获取开始日期有误" + e);
             e.printStackTrace();
         }
-
+        LOG.debug("查询时间段：开始时间："+queryTime[0]+"，结束时间"+queryTime[1]);
         Map map = sensorService.querySonsor(sensorID, queryTime[0], queryTime[1]);
 
         JSONObject json = JSONObject.fromObject(map);//将map对象转换成json类型数据
@@ -114,6 +114,7 @@ public class SensorAction extends ActionSupport
     }
 
     public String statictis() throws ParseException {
+
         LOG.debug("execut staticts function");
         LOG.debug("sensor parameter is " + sensorParameter);
         if(isNullSenPara(sensorParameter)){
@@ -133,7 +134,7 @@ public class SensorAction extends ActionSupport
             LOG.error("获取开始日期有误" + e);
             e.printStackTrace();
         }
-
+        LOG.debug("统计时间段：开始时间："+queryTime[0]+"，结束时间"+queryTime[1]);
         Map map = sensorService.getStatictis(sensorID,queryTime[0],queryTime[1]);
 
         JSONObject json = JSONObject.fromObject(map);//将map对象转换成json类型数据
@@ -206,6 +207,7 @@ public class SensorAction extends ActionSupport
      */
     private String[] convertQueryTime(String date, String dateType) throws ParseException {
 
+        date += " 00:00:00";
         String[] time = new String[2];
         if (dateType.equals("week")) {
 
@@ -224,8 +226,9 @@ public class SensorAction extends ActionSupport
         } else {
             time[0] = date;
             time[1] = DateTimeConvert.getNextDay(date);
-        }
 
+        }
+        LOG.debug("date:"+time[0]+",nextDate="+time[1]);
         return time;
     }
 }
