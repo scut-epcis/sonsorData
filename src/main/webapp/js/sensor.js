@@ -172,18 +172,18 @@ function optionFactory(res) {
         }
 
     } else if (metaSum == '3') {
-        legend_data = {"data": [res.unit0name, res.unit1name, res.unit2name]};
+        legend_data = {"data": [res.unit1name, res.unit0name, res.unit2name]};
         yAxis_data = [{
-            type: 'value',
-            name: res.unit0name,
-            axisLabel: {
-                formatter: '{value} ' + res.unit0abbr
-            }
-        }, {
             type: 'value',
             name: res.unit1name,
             axisLabel: {
                 formatter: '{value} ' + res.unit1abbr
+            }
+        }, {
+            type: 'value',
+            name: res.unit0name,
+            axisLabel: {
+                formatter: '{value} ' + res.unit0abbr
             }
         }, {
             type: 'value',
@@ -196,11 +196,11 @@ function optionFactory(res) {
         if (dataSum == 0) {
             series_data = [
                 {
-                    name: res.unit0name,
+                    name: res.unit1name,
                     type: 'line',
                     data: '-'
                 }, {
-                    name: res.unit1name,
+                    name: res.unit0name,
                     type: 'line',
                     yAxisIndex: 1,
                     data: '-'
@@ -217,9 +217,9 @@ function optionFactory(res) {
             var result2 = res.result2.split(",");
             series_data = [
                 {
-                    name: res.unit0name,
+                    name: res.unit1name,
                     type: 'line',
-                    data: result0,
+                    data: result1,
                     markPoint: {
                         data: [
                             {type: 'max', name: '最大值'},
@@ -232,10 +232,10 @@ function optionFactory(res) {
                         ]
                     }
                 }, {
-                    name: res.unit1name,
+                    name: res.unit0name,
                     type: 'line',
                     yAxisIndex: 1,
-                    data: result1,
+                    data: result0,
                     markPoint: {
                         data: [
                             {type: 'max', name: '最大值'},
