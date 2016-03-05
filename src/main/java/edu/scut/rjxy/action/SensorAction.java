@@ -94,6 +94,7 @@ public class SensorAction extends ActionSupport
 
         JSONObject json = JSONObject.fromObject(map);//将map对象转换成json类型数据
         result = json.toString();//给result赋值，传递给页面
+        LOG.debug("最初记录的时间 " + result);
         return "success";
     }
 
@@ -110,6 +111,7 @@ public class SensorAction extends ActionSupport
 
         JSONObject json = JSONObject.fromObject(map);//将map对象转换成json类型数据
         result = json.toString();
+        LOG.debug("最新数据的时间 " + result);
         return "success";
     }
 

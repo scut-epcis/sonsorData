@@ -48,6 +48,7 @@ public class SensorDAOImpl extends HibernateDaoSupport implements SensorDAO {
     }
 
     public String getMainMenu() {
+
         final String mainMenuSql = "select siteName from webLogger.dbo.sites ";
         SQLQuery query = this.getSession().createSQLQuery(mainMenuSql).addScalar("siteName", new StringType());
         final String str = query.list()==null ?"主目录":query.list().get(0)==null?"主目录":query.list().get(0).toString();
@@ -55,6 +56,7 @@ public class SensorDAOImpl extends HibernateDaoSupport implements SensorDAO {
     }
 
     public List<Object[]> getHeadDate(String sensorID) {
+
         final String sensorDataHeadDate = "select top 1 channel1_Data,captureTime from webLogger.dbo.sensordata " +
                 "where sensordata.Sensor_sensorSerialNo= "+ sensorID +" ORDER  BY captureTime ASC ";
         SQLQuery query = this.getSession().createSQLQuery(sensorDataHeadDate);
@@ -62,6 +64,7 @@ public class SensorDAOImpl extends HibernateDaoSupport implements SensorDAO {
     }
 
     public List<Object[]> getTailDate(String sensorID) {
+
         final String sensorDataTailDate = "select top 1 channel1_Data,captureTime from webLogger.dbo.sensordata " +
                 "where sensordata.Sensor_sensorSerialNo= "+ sensorID +" ORDER  BY captureTime DESC ";;
         SQLQuery query = this.getSession().createSQLQuery(sensorDataTailDate);
@@ -69,7 +72,6 @@ public class SensorDAOImpl extends HibernateDaoSupport implements SensorDAO {
     }
 
     public List querySensorData(String sensorID, String beginDate, String endDate) {
-
 
         final String sql = "select channel1_Data, channel2_Data,channel3_Data,channel4_Data,captureTime from webLogger.dbo.sensordata " +
                 " where sensordata.Sensor_sensorSerialNo=" + sensorID +
@@ -80,6 +82,7 @@ public class SensorDAOImpl extends HibernateDaoSupport implements SensorDAO {
     }
 
     public List querySensorData(int dlNo, String sensorID, String beginDate, String endDate) {
+
         SQLQuery query = null;
         if (dlNo == 1) {
             final String sql = "select captureTime,channel1_Data from webLogger.dbo.sensordata " +
@@ -125,6 +128,7 @@ public class SensorDAOImpl extends HibernateDaoSupport implements SensorDAO {
     }
 
     public int getSensorChennalNumber(String sensorID) {
+
         final String chennalNumber =  "select max(sensortypeproperties.channelNumber) AS  chennalNumber " +
                 "from webLogger.dbo.sensortypeproperties,webLogger.dbo.sensor " +
                 "where sensor.sensorSerialNo="+ sensorID + " and sensortypeproperties.sensorType_idSensorType=sensor.idSensorType ";

@@ -15,7 +15,8 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
         <property name="hibernateProperties">
             <props>
                 <!--<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>-->
-                <prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
+                <!--<prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>-->
+                <prop key="hibernate.dialect">edu.scut.rjxy.utils.SqlServer2008Dialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
             </props>
         </property>
