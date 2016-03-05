@@ -261,7 +261,7 @@ public class SensorServiceImpl implements SensorService {
 //                    LOG.debug("最大值统计：" + res[i]);
                     res[i + 1] += item[i + 1].toString() + ",";
 //                    LOG.debug("最小值统计：" + res[i + 1]);
-                    res[i + 2] += item[i + 2].toString().length()<5?item[i + 2].toString():item[i + 2].toString().substring(0, 5) + ",";
+                    res[i + 2] += item[i + 2].toString().length()<5?item[i + 2].toString()+",":item[i + 2].toString().substring(0, 5) + ",";
 //                    LOG.debug("平均值统计：" + res[i + 2]);
                     i += 3;
                 }
