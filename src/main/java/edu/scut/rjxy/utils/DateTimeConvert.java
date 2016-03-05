@@ -129,7 +129,7 @@ public final class DateTimeConvert {
      */
     public static final String formatDate(String date){
 
-        if(date.length() <=19){
+        if(date.length() <19){
             return getFormateDate();
         }
         try{
