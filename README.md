@@ -1,7 +1,8 @@
 # sonsorData
 about sensor data 收集<br>
 orgin分支，包含项目搭建的整个过程，其中有很多测试文件，比较乱。<br>
-realse分支，是一个纯粹的sensor 项目，没有测试文件，代码结构力求清晰。
+realse分支，是一个纯粹的sensor 项目，没有测试文件，代码结构力求清晰。<br>
+sensorData1.0-release分支，是提供给南越王博物馆的试用版本。<br>
 
 统一任务<br>
 1.安装和设置intellij（jdk,编码（UTF-8）,maven,git,github）<br>
