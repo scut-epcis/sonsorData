@@ -23,7 +23,7 @@ function doAjaxdemo() {
             var datefield = $('#datefield').datebox('getValue');
             var dategap = $('#dategap').val();
             var sensorno = $('#sensorno').val();
-            console.info('sensorno:' + sensorno + ',datefield:' + datefield + ',dategap=' + dategap);
+           // console.info('sensorno:' + sensorno + ',datefield:' + datefield + ',dategap=' + dategap);
             if (datefield == '' || dategap == '') {
                 alert('有输入项为空！');
                 return;
@@ -43,9 +43,9 @@ function doAjaxdemo() {
                     error: function (e) {
                         var error = eval("(" + e + ")");
                         if (error.error == undefined) {
-                            alert('Error: ' + e);
+                            alert('服务器运行缓慢，请稍后刷新！');
                         } else {
-                            alert('Error: ' + error.error);
+                            alert('服务器运行缓慢，请稍后刷新');
                         }
 
                     }
@@ -613,7 +613,7 @@ function doAjaxHead() {
     var datefield = $('#datefield').datebox('getValue');
     var dategap = $('#dategap').val();
     var sensorno = $('#sensorno').val();
-    console.info('sensorno:' + sensorno + ',datefield:' + datefield + ',dategap=' + dategap);
+    //console.info('sensorno:' + sensorno + ',datefield:' + datefield + ',dategap=' + dategap);
     if (sensorno == '' || dategap == '') {
         alert('有输入项为空！');
         return;
@@ -624,16 +624,16 @@ function doAjaxHead() {
             data: "datefield=" + datefield + "&dategap=" + dategap + "&sensorno=" + sensorno,
             success: function (res) {
                 var ores = eval("(" + res + ")");
-                console.info('headTime :' + ores.headDate);
+                //console.info('headTime :' + ores.headDate);
                 $('#datefield').datebox('setValue', ores.headDate);	// set datebox value
                 doAjaxdemo();
             },
             error: function (e) {
                 var error = eval("(" + e + ")");
                 if (error.error == undefined) {
-                    alert('异常: ' + e);
+                    alert('服务器运行缓慢，请稍后刷新！');
                 } else {
-                    alert('异常: ' + error.error);
+                    alert('服务器运行缓慢，请稍后刷新');
                 }
             }
         }
@@ -650,7 +650,7 @@ function doAjaxTail() {
     var datefield = $('#datefield').datebox('getValue');
     var dategap = $('#dategap').val();
     var sensorno = $('#sensorno').val();
-    console.info('sensorno:' + sensorno + ',datefield:' + datefield + ',dategap=' + dategap);
+    //console.info('sensorno:' + sensorno + ',datefield:' + datefield + ',dategap=' + dategap);
     if (sensorno == '' || dategap == '') {
         alert('有输入项为空！');
         return;
@@ -661,16 +661,16 @@ function doAjaxTail() {
             data: "datefield=" + datefield + "&dategap=" + dategap + "&sensorno=" + sensorno,
             success: function (res) {
                 var ores = eval("(" + res + ")");
-                console.info('tailDate :' + ores.tailDate);
+                //console.info('tailDate :' + ores.tailDate);
                 $('#datefield').datebox('setValue', ores.tailDate);	// set datebox value
                 doAjaxdemo();
             },
             error: function (e) {
                 var error = eval("(" + e + ")");
                 if (error.error == undefined) {
-                    alert('异常: ' + e);
+                    alert('服务器运行缓慢，请稍后刷新！' );
                 } else {
-                    alert('异常: ' + error.error);
+                    alert('服务器运行缓慢，请稍后刷新');
                 }
             }
         }
