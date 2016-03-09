@@ -4,9 +4,15 @@
     <groupId>edu.scut.rjxy</groupId>
     <artifactId>SensorSSH</artifactId>
     <packaging>war</packaging>
-    <version>edu.scut.rjxy</version>
+    <version>1.0-SNAPSHOT</version>
+
     <name>Sensor SSH Maven Webapp</name>
     <url>http://maven.apache.org</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <dependencies>
 
         <!-- jUnit -->
@@ -121,6 +127,12 @@
         </dependency>
         <!-- Hibernate query library dependency end -->
 
+        <!--log4j dependency -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
 
     </dependencies>
     <build>

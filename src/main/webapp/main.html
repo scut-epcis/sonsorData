@@ -13,10 +13,12 @@
     Released under the MIT license: http://jsbin.mit-license.org
     -->
     <meta name="robots" content="noindex">
-    <title>JS Bin</title>
+    <title>sensor 监控</title>
     <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
     <script src="js/jquery.easyui.min.js" type="text/javascript"></script>
     <script src="js/edit.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/menu.js"></script>
+
     <link rel="stylesheet" type="text/css" href="css/edit.css">
     <link rel="stylesheet" type="text/css" href="themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="themes/icon.css">
@@ -33,7 +35,7 @@
         }
 
         .west {
-            width: 200px;
+            width: 18%;
             padding: 10px;
         }
 
@@ -42,145 +44,29 @@
         }
     </style>
 </head>
-<body class="easyui-layout">
-<div region="north" class="north" title="图书馆传感器监测">
-    <h1>最简单的左右结构实现，及tab的右键菜单实现</h1>
-</div>
-<div region="center" title="工作区">
-    <div class="easyui-tabs" fit="true" border="false" id="tabs">
-        <div title="首页"></div>
+<body>
+<div id="subWrap" class="easyui-layout" fit="true">
+    <div region="north" class="north" title="博物馆环境数据监测">
+        <h1><span style="font-size:12px;">&nbsp;&nbsp;&nbsp;</span>南越王博物馆</h1>
     </div>
+    <div region="center" title="工作区">
+        <div class="easyui-tabs" fit="true" border="false" id="tabs">
+            <div title="首页"></div>
+        </div>
+    </div>
+    <div region="west" class="west" split="true" title="主菜单">
+        <ul id="tree"></ul>
+    </div>
+
+    <div id="tabsMenu" class="easyui-menu" style="width:120px;">
+        <div name="close">关闭</div>
+        <div name="Other">关闭其他</div>
+        <div name="All">关闭所有</div>
+    </div>
+    <script>
+
+
+    </script>
 </div>
-<div region="west" class="west" title="主菜单">
-    <ul id="tree"></ul>
-</div>
-
-<div id="tabsMenu" class="easyui-menu" style="width:120px;">
-    <div name="close">关闭</div>
-    <div name="Other">关闭其他</div>
-    <div name="All">关闭所有</div>
-</div>
-<script>
-    $(function () {
-        //动态菜单数据
-        var treeData = [
-            {
-                text: "主目录",
-                children: [
-                    {
-                        text: "存储室",
-                        state: "closed",
-                        children: [
-                            {
-                                text: "传感器1",
-                                attributes: {
-                                    url: "sensordemo.html",
-                                    key:"1"
-                                }
-                            },
-                            {
-                                text: "传感器2",
-                                attributes: {
-                                    url: "hello.html",
-                                    key:"2"
-                                }
-                            },
-                            {
-                                text: "传感器3",
-                                attributes: {
-                                    url: "opcustomer.jsp",
-                                    key:"3"
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        text: "第二层",
-                        state: "closed",
-                        children: [
-                            {
-                                text: "传感器4",
-                                attributes: {
-                                    url: "index.jsp",
-                                    key:"4"
-                                }
-                            }
-                        ]
-                    }
-                ]
-            }
-        ];
-
-        //实例化树形菜单
-        $("#tree").tree({
-            data: treeData,
-            lines: true,
-            onClick: function (node) {
-                if (node.attributes) {
-                    Open(node.text, node.attributes.url,node.attributes.key);
-                }
-            }
-        });
-        //在右边center区域打开菜单，新增tab
-        function Open(text, url,buttonkey) {
-            if ($("#tabs").tabs('exists', text)) {
-                $('#tabs').tabs('select', text);
-            } else {
-                var contents = '<iframe scrolling="auto" frameborder="0" name="iframe_'+buttonkey+'" src="' + url + '" style="width:100%;height:100%;"></iframe>';
-                $('#tabs').tabs('add', {
-                    title: text,
-                    closable: true,
-                    content: contents
-                });
-            }
-        }
-
-        //绑定tabs的右键菜单
-        $("#tabs").tabs({
-            onContextMenu: function (e, title) {
-                e.preventDefault();
-                $('#tabsMenu').menu('show', {
-                    left: e.pageX,
-                    top: e.pageY
-                }).data("tabTitle", title);
-            }
-        });
-
-        //实例化menu的onClick事件
-        $("#tabsMenu").menu({
-            onClick: function (item) {
-                CloseTab(this, item.name);
-            }
-        });
-
-        //几个关闭事件的实现
-        function CloseTab(menu, type) {
-            var curTabTitle = $(menu).data("tabTitle");
-            var tabs = $("#tabs");
-
-            if (type === "close") {
-                tabs.tabs("close", curTabTitle);
-                return;
-            }
-
-            var allTabs = tabs.tabs("tabs");
-            var closeTabsTitle = [];
-
-            $.each(allTabs, function () {
-                var opt = $(this).panel("options");
-                if (opt.closable && opt.title != curTabTitle && type === "Other") {
-                    closeTabsTitle.push(opt.title);
-                } else if (opt.closable && type === "All") {
-                    closeTabsTitle.push(opt.title);
-                }
-            });
-
-            for (var i = 0; i < closeTabsTitle.length; i++) {
-                tabs.tabs("close", closeTabsTitle[i]);
-            }
-        }
-    });
-</script>
-
 </body>
 </html>

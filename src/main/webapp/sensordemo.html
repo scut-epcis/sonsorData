@@ -1,45 +1,75 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv = "content-type" content = "text/html; charset=utf-8" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8">
-    <title>先生My first Chartis Tests </title>
+    <title> first Chartis </title>
 
     <script src="dist/echarts.js"></script>
     <script src="js/jquery-1.11.3.min.js"></script>
     <script src="js/jquery.easyui.min.js"></script>
     <script src="js/sensor.js"></script>
+    <script src="js/statistic.js"></script>
+    <script src="js/easyui-lang-zh_CN.js"></script>
 
     <link rel="stylesheet" type="text/css" href="themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="themes/icon.css">
     <link rel="stylesheet" type="text/css" href="css/demo.css">
+    <link rel="stylesheet" type="text/css" href="css/buttons.css">
 
 </head>
 <body>
 <script type="text/javascript">
+    $(function () {
+        //解析url
+        var param = window.location.href;
+        //var reg = new RegExp("(^|&)" + param + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1);
+        var p = r.split("&");
+        var ary = new Array();
+        for (i = 0; i < p.length; i++) {
+            var s = p[i];
+            var t = s.split("=");
+            ary.push(t[1]);
+        }
 
+        var id = ary[0];
+//        console.info(id);
+        $("#sensorno").val(id);
+    });
 </script>
 <div>
-    <div><input type="hidden" id="sensorno" value="1" /></div>
+    <div><input type="hidden" id="sensorno" value="0"/></div>
     <div id="form">
-        <form >
+        <form>
             <table>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td>日期 ：</td>
-                    <td><input class="easyui-datebox" id="datefield" data-options="formatter:myformatter,parser:myparser" required data-options="validType:'md[\'10/11/2012\']'"></input></td>
+                    <td>查询日期 ：</td>
+                    <td><input class="easyui-datebox" id="datefield"
+                               data-options="formatter:myformatter,parser:myparser" required
+                               data-options="validType:'md[\'10/11/2012\']'"></input></td>
                     <td>时间跨度 ：</td>
                     <td>
                         <select id="dategap">
-                            <option value ="day">day</option>
-                            <option value ="week">week</option>
-                            <option value="month">month</option>
+                            <option value="day">一天内</option>
+                            <option value="week">一周内</option>
+                            <option value="month">一月内</option>
                         </select>
                     </td>
-                    <td></td>
-                    <td><input type="button" value="查询" onclick="doAjaxdemo();" />
+                    <td><input type="button" value="查询" class="button button-myfont button-primary button-pill button-small" onclick="doAjaxdemo();"/>
                     </td>
+                <tr>
+                    <td><input type="button" value="向前查询" class="button button-myfont button-primary button-rounded button-small" onclick="doQueryPrev();"/>
+                    </td>
+                    <td><input type="button" value="向后查询" class="button button-myfont button-primary button-rounded button-small" onclick="doQueryNext();"/>
+                    </td>
+                    <td><input type="button" value="最初数据" class="button button-myfont button-primary button-rounded button-small" onclick="doAjaxHead();"/>
+                    </td>
+                    <td><input type="button" value="最新数据"  class="button button-myfont button-primary button-rounded button-small" onclick="doAjaxTail();"/>
+                    </td>
+                    <td><input type="button" value="统计" class="button button-myfont button-primary button-pill button-small" onclick="doMonthStatictis();"/>
+                    </td>
+                </tr>
                 </tr>
             </table>
         </form>
