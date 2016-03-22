@@ -61,7 +61,7 @@ $(document).ready(function(){
 
 $(function () {
 
- //console.info("fa");
+    //console.info("fa");
 });
 
 //在右边center区域打开菜单，新增tab

@@ -30,12 +30,12 @@ public class SensorAction extends ActionSupport
         return sensorParameter;
     }
 
-    SensorService sensorService;
-
-    //DI via Spring
-    public void setSensorService(SensorService sensorService) {
-        this.sensorService = sensorService;
-    }
+//    SensorService sensorService;
+//
+//    //DI via Spring
+//    public void setSensorService(SensorService sensorService) {
+//        this.sensorService = sensorService;
+//    }
 
     // 返回结果
     private String result;
@@ -75,74 +75,22 @@ public class SensorAction extends ActionSupport
             e.printStackTrace();
         }
         LOG.debug("查询时间段：开始时间："+queryTime[0]+"，结束时间"+queryTime[1]);
-        Map map = sensorService.querySonsor(sensorID, queryTime[0], queryTime[1]);
+        Map map = new HashMap();
+        map.put("metaSum","1");
+        map.put("dataSum","6");
+        map.put("unit0name","time");
+        map.put("unit0abbr","t");
+        map.put("result0","2014-7-30 11:27:29,2014-7-30 17:21:02,2014-7-31 08:17:11,2014-7-31 08:17:55,2014-7-31 08:32:08,2014-7-31 08:32:41");
+        map.put("shaft","1,2,3,4,5,6");
 
         JSONObject json = JSONObject.fromObject(map);//将map对象转换成json类型数据
         result = json.toString();//给result赋值，传递给页面
         return "success";
     }
 
-    public String head(){
-        LOG.debug("execut head function");
-        LOG.debug("sensor parameter is " + sensorParameter);
-        if(isNullPartSenPara(sensorParameter)){
-            result = new JSONObject().put("error", "输入参数有误!").toString();
-            return "false";
-        }
-        String sensorID = sensorParameter.getSensorno();
-        Map map = sensorService.querySonsorHeadDate(sensorID);
 
-        JSONObject json = JSONObject.fromObject(map);//将map对象转换成json类型数据
-        result = json.toString();//给result赋值，传递给页面
-        LOG.debug("最初记录的时间 " + result);
-        return "success";
-    }
 
-    public String tail(){
-        LOG.debug("execut tail function");
-        LOG.debug("sensor parameter is " + sensorParameter);
-        if(isNullPartSenPara(sensorParameter)){
-            result = new JSONObject().put("error", "输入参数不全或有误!").toString();
-            return "false";
-        }
 
-        String sensorID = sensorParameter.getSensorno();
-        Map map = sensorService.querySonsorTailDate(sensorID);
-
-        JSONObject json = JSONObject.fromObject(map);//将map对象转换成json类型数据
-        result = json.toString();
-        LOG.debug("最新数据的时间 " + result);
-        return "success";
-    }
-
-    public String statictis() throws ParseException {
-
-        LOG.debug("execut staticts function");
-        LOG.debug("sensor parameter is " + sensorParameter);
-        if(isNullSenPara(sensorParameter)){
-            result = new JSONObject().put("error", "输入参数不全或有误!").toString();
-            return "false";
-        }
-
-        if("day".equals(sensorParameter.getDategap())){
-            // 如果是天换成周
-            sensorParameter.setDategap("week");
-        }
-        String sensorID = sensorParameter.getSensorno();
-        String[] queryTime = new String[2];
-        try {
-            queryTime = convertQueryTime(sensorParameter.getDatefield(), sensorParameter.getDategap());
-        } catch (ParseException e) {
-            LOG.error("获取开始日期有误" + e);
-            e.printStackTrace();
-        }
-        LOG.debug("统计时间段：开始时间："+queryTime[0]+"，结束时间"+queryTime[1]);
-        Map map = sensorService.getStatictis(sensorID,queryTime[0],queryTime[1]);
-
-        JSONObject json = JSONObject.fromObject(map);//将map对象转换成json类型数据
-        result = json.toString();
-        return "success";
-    }
 
     /**
      * 判断 sensor 参数是否为空，
@@ -191,7 +139,10 @@ public class SensorAction extends ActionSupport
 
 //        Map map = sensorService.querySonsor(sensorID,queryTime[0],queryTime[1]);
 
-        Map map = sensorService.getMenu();
+        Map map = new HashMap() ;//sensorService.getMenu();
+        map.put("firstMenu","nihao");
+        map.put("second_0name","lala");
+        map.put("second_0key","1");
         JSONObject json = JSONObject.fromObject(map);//将map对象转换成json类型数据
         result = json.toString();//给result赋值，传递给页面
 
