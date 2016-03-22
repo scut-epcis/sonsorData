@@ -3,7 +3,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
  
- <bean 
+<!-- <bean
    class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
    <property name="location">
      <value>WEB-INF/classes/config/database/properties/database.properties</value>
@@ -16,6 +16,6 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<property name="url" value="${jdbc.url}" />
 	<property name="username" value="${jdbc.username}" />
 	<property name="password" value="${jdbc.password}" />
-  </bean>
+  </bean>-->
  
 </beans>

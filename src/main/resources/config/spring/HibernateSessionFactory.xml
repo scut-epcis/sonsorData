@@ -8,14 +8,15 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
     <bean id="sessionFactory"
           class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 
+<!--
         <property name="dataSource">
             <ref bean="dataSource"/>
         </property>
 
         <property name="hibernateProperties">
             <props>
-                <!--<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>-->
-                <!--<prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>-->
+                &lt;!&ndash;<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>&ndash;&gt;
+                &lt;!&ndash;<prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>&ndash;&gt;
                 <prop key="hibernate.dialect">edu.scut.rjxy.utils.SqlServer2008Dialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
             </props>
@@ -26,6 +27,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
                 <value>edu/scut/rjxy/hibernate/Customer.hbm.xml</value>
             </list>
         </property>
+-->
 
     </bean>
 </beans>

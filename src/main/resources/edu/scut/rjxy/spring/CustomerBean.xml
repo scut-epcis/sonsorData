@@ -7,16 +7,16 @@
 
 
 	<bean id="sensorAction" class="edu.scut.rjxy.action.SensorAction">
-		<property name="sensorService" ref="sensorService" />
+		<!--<property name="sensorService" ref="sensorService" />-->
 	</bean>
 
 
-	<bean id="sensorService" class="edu.scut.rjxy.service.impl.SensorServiceImpl">
+<!--	<bean id="sensorService" class="edu.scut.rjxy.service.impl.SensorServiceImpl">
 		<property name="sensorDAO" ref="sensorDAO"></property>
 	</bean>
 
 	<bean id="sensorDAO" class="edu.scut.rjxy.dao.impl.SensorDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean>
+	</bean>-->
 
 </beans>

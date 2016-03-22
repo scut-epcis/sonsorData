@@ -3,11 +3,11 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	
-	<!-- Database Configuration -->
+<!--	 Database Configuration
 	<import resource="config/spring/DataSource.xml"/>
 	<import resource="config/spring/HibernateSessionFactory.xml"/>
  
-	<!-- Beans Declaration -->
-	<import resource="edu/scut/rjxy/spring/CustomerBean.xml"/>
+	&lt;!&ndash; Beans Declaration &ndash;&gt;
+	<import resource="edu/scut/rjxy/spring/CustomerBean.xml"/>-->
  
 </beans>
